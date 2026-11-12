@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment | SmileCare Dental Clinic</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="patient-dashboard.html">
+                SmileCare
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="patient-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="book-appointment.html">
+                            Create Booking
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Booking Form -->
+    <div class="container mt-5 mb-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-8 col-lg-7">
+
+                <div class="card shadow border-0">
+
+                    <div class="card-body p-4">
+
+                        <h2 class="text-primary text-center mb-2">
+                            Book an Appointment
+                        </h2>
+
+                        <p class="text-muted text-center mb-4">
+                            Fill in the details below to request your appointment.
+                        </p>
+
+
+                        <!-- Appointment Form -->
+                        <form id="appointmentForm">
+
+                            <!-- Patient Name -->
+                            <div class="mb-3">
+
+                                <label for="patientName" class="form-label">
+                                    Patient Name
+                                </label>
+
+                                <input type="text"
+                                    class="form-control"
+                                    id="patientName"
+                                    placeholder="Enter your full name"
+                                    value="Intan Nadhirah"
+                                    required>
+
+                            </div>
+
+
+                            <!-- Email -->
+                            <div class="mb-3">
+
+                                <label for="patientEmail" class="form-label">
+                                    Email Address
+                                </label>
+
+                                <input type="email"
+                                    class="form-control"
+                                    id="patientEmail"
+                                    placeholder="Enter your email"
+                                    value="patient@gmail.com"
+                                    required>
+
+                            </div>
+
+
+                            <!-- Treatment -->
+                            <div class="mb-3">
+
+                                <label for="treatment" class="form-label">
+                                    Select Treatment
+                                </label>
+
+                                <select class="form-select" id="treatment" required>
+
+                                    <option value="" selected disabled>
+                                        Choose a treatment
+                                    </option>
+
+                                    <option value="Dental Scaling">
+                                        Dental Scaling
+                                    </option>
+
+                                    <option value="Tooth Filling">
+                                        Tooth Filling
+                                    </option>
+
+                                    <option value="Dental Check-up">
+                                        Dental Check-up
+                                    </option>
+
+                                    <option value="Tooth Extraction">
+                                        Tooth Extraction
+                                    </option>
+
+                                    <option value="Teeth Whitening">
+                                        Teeth Whitening
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Appointment Date -->
+                            <div class="mb-3">
+
+                                <label for="appointmentDate" class="form-label">
+                                    Appointment Date
+                                </label>
+
+                                <input type="date"
+                                    class="form-control"
+                                    id="appointmentDate"
+                                    required>
+
+                            </div>
+
+
+                            <!-- Appointment Time -->
+                            <div class="mb-3">
+
+                                <label for="appointmentTime" class="form-label">
+                                    Preferred Time
+                                </label>
+
+                                <select class="form-select" id="appointmentTime" required>
+
+                                    <option value="" selected disabled>
+                                        Choose a preferred time
+                                    </option>
+
+                                    <option value="09:00 AM">09:00 AM</option>
+                                    <option value="10:00 AM">10:00 AM</option>
+                                    <option value="11:00 AM">11:00 AM</option>
+                                    <option value="02:00 PM">02:00 PM</option>
+                                    <option value="03:00 PM">03:00 PM</option>
+                                    <option value="04:00 PM">04:00 PM</option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Dentist Information -->
+                            <div class="alert alert-info">
+
+                                <strong>Note:</strong>
+
+                                The clinic will assign a dentist based on availability.
+                                Your appointment status will be Pending until confirmed.
+
+                            </div>
+
+
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary w-100">
+                                Submit Appointment
+                            </button>
+
+
+                            <!-- Back Button -->
+                            <a href="patient-dashboard.html"
+                                class="btn btn-outline-secondary w-100 mt-2">
+
+                                Back to Dashboard
+
+                            </a>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Appointment Form Validation -->
+    <script>
+
+        const appointmentForm = document.getElementById("appointmentForm");
+
+        // Set minimum appointment date to today
+        const today = new Date();
+
+        const localDate = new Date(
+            today.getTime() - today.getTimezoneOffset() * 60000
+        ).toISOString().split("T")[0];
+
+        document.getElementById("appointmentDate").min = localDate;
+
+
+        // Submit Appointment
+        appointmentForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const patientName = document.getElementById("patientName").value.trim();
+            const patientEmail = document.getElementById("patientEmail").value.trim();
+            const treatment = document.getElementById("treatment").value;
+            const appointmentDate = document.getElementById("appointmentDate").value;
+            const appointmentTime = document.getElementById("appointmentTime").value;
+
+
+            // Check appointment date
+            if (appointmentDate < localDate) {
+
+                alert("Please select a valid appointment date.");
+
+                return;
+
+            }
+
+
+            // Create appointment information
+            const newAppointment = {
+
+                patientName: patientName,
+                patientEmail: patientEmail,
+                date: appointmentDate,
+                time: appointmentTime,
+                treatment: treatment,
+                dentist: "To be assigned by clinic",
+                status: "Pending"
+
+            };
+
+
+            // Get existing appointments
+            let appointments = JSON.parse(
+                localStorage.getItem("smilecareAppointments")
+            ) || [];
+
+
+            // Add new appointment
+            appointments.push(newAppointment);
+
+
+            // Save appointment
+            localStorage.setItem(
+                "smilecareAppointments",
+                JSON.stringify(appointments)
+            );
+
+
+            // Show confirmation message
+            alert("Your appointment request has been submitted successfully!");
+
+
+            // Return to Patient Dashboard
+            window.location.href = "patient-dashboard.html";
+
+        });
+
+    </script>
+
+
+</body>
+</html>

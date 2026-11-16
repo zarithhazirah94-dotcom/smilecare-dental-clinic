@@ -7,17 +7,301 @@
 
     <title>Admin Dashboard | SmileCare Dental Clinic</title>
 
+    <!-- Apply Saved Theme -->
+    <script>
+        if (localStorage.getItem("smilecareTheme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Poppins', sans-serif;
+            color: #26374a;
+            transition: 0.3s;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #12304a;
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            font-size: 21px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+        }
+
+        .nav-link {
+            color: #dce8f1 !important;
+            margin-left: 10px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #5ee0d0 !important;
+        }
+
+        /* Dark Mode Button */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background-color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* Dashboard */
+        .section-title {
+            font-weight: 600;
+            color: #12304a;
+        }
+
+        .welcome-text {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Summary Cards */
+        .summary-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+            transition: 0.2s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .summary-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .icon-blue {
+            background-color: #e4efff;
+        }
+
+        .icon-green {
+            background-color: #ddf7ed;
+        }
+
+        .icon-yellow {
+            background-color: #fff3d6;
+        }
+
+        .icon-purple {
+            background-color: #eee5ff;
+        }
+
+        .summary-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: #12304a;
+        }
+
+        .summary-label {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+
+        /* Appointment Table */
+        .table thead th {
+            background-color: #eaf2fa;
+            color: #23415c;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            font-size: 13px;
+            padding: 14px 10px;
+            vertical-align: middle;
+        }
+
+        .patient-name {
+            font-weight: 600;
+            color: #23415c;
+        }
+
+        /* Appointment Status */
+        .status-confirmed {
+            background-color: #d8f5e8;
+            color: #16764a;
+        }
+
+        .status-pending {
+            background-color: #fff0c9;
+            color: #956600;
+        }
+
+        .status-cancelled {
+            background-color: #fde2e2;
+            color: #b42318;
+        }
+
+        .empty-message {
+            color: #718096;
+            text-align: center;
+            padding: 25px !important;
+        }
+
+        /* Sorting Buttons */
+        .sort-btn {
+            border-radius: 8px;
+            font-size: 12px;
+            padding: 7px 12px;
+            transition: 0.2s;
+        }
+
+        .sort-btn.active {
+            background-color: #123c56;
+            color: white;
+            border-color: #123c56;
+        }
+
+        .footer-text {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* DARK MODE */
+        html.dark-mode body {
+            background-color: #101c29;
+            color: #e4edf5;
+        }
+
+        html.dark-mode .section-title,
+        html.dark-mode .summary-number,
+        html.dark-mode .patient-name {
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .welcome-text,
+        html.dark-mode .summary-label,
+        html.dark-mode .text-muted {
+            color: #aebdca !important;
+        }
+
+        html.dark-mode .summary-card,
+        html.dark-mode .dashboard-card {
+            background-color: #1e2d3d;
+            color: #e4edf5;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        html.dark-mode .table {
+            color: #e4edf5;
+            --bs-table-bg: #1e2d3d;
+            --bs-table-color: #e4edf5;
+            --bs-table-hover-bg: #293d50;
+            --bs-table-hover-color: #ffffff;
+        }
+
+        html.dark-mode .table thead th {
+            background-color: #293d50;
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .table tbody td {
+            border-color: #35485b;
+        }
+
+        html.dark-mode .status-cancelled {
+            background-color: #542d35;
+            color: #ffb4b4;
+        }
+
+        html.dark-mode .btn-outline-primary {
+            color: #8bd5f0;
+            border-color: #8bd5f0;
+        }
+
+        html.dark-mode .btn-outline-primary:hover,
+        html.dark-mode .btn-outline-primary.active {
+            background-color: #8bd5f0;
+            color: #12304a;
+            border-color: #8bd5f0;
+        }
+
+        html.dark-mode .theme-btn {
+            background-color: #34495e;
+        }
+
+        @media (max-width: 767px) {
+            .summary-number {
+                font-size: 25px;
+            }
+
+            .chart-container {
+                height: 250px;
+            }
+
+            .theme-btn {
+                margin: 10px 0;
+            }
+
+            .appointment-heading {
+                align-items: flex-start !important;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
 
             <a class="navbar-brand" href="admin.html">
+                <img src="images/logo.png" alt="SmileCare Logo">
                 SmileCare Admin
             </a>
 
@@ -32,115 +316,252 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="admin.html">
-                            Dashboard
-                        </a>
+                        <a class="nav-link active" href="admin.html">Dashboard</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="patients.html">
-                            Patients
-                        </a>
+                        <a class="nav-link" href="patients.html">Patients</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="appointments.html">
-                            Appointments
-                        </a>
+                        <a class="nav-link" href="appointments.html">Appointments</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            Logout
-                        </a>
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button
+                            type="button"
+                            class="theme-btn"
+                            id="themeToggle"
+                            onclick="toggleDarkMode()"
+                            aria-label="Toggle dark mode"
+                            title="Toggle Dark Mode">
+
+                            🌙
+                        </button>
                     </li>
 
                 </ul>
             </div>
-
         </div>
     </nav>
 
 
-    <!-- Dashboard Heading -->
-    <div class="container mt-4">
+    <div class="container py-4">
 
-        <h2 class="text-primary">Admin Dashboard</h2>
+        <!-- Dashboard Heading -->
+        <div class="mb-4">
+            <h2 class="section-title">Admin Dashboard</h2>
 
-        <p class="text-muted">
-            Welcome to SmileCare Dental Clinic Management System.
-            Manage patient records and appointments here.
-        </p>
+            <p class="welcome-text mb-0">
+                Welcome to SmileCare Dental Clinic Management System.
+                Here's an overview of your clinic activities.
+            </p>
+        </div>
 
-    </div>
 
-
-    <!-- Summary Cards -->
-    <div class="container mt-4">
-
-        <div class="row g-3">
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4">
 
             <!-- Total Patients -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
+            <div class="col-6 col-lg-3">
+                <div class="card summary-card h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-muted">
-                            Total Patients
-                        </h5>
 
-                        <h2 class="text-primary">120</h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="summary-label">Total Patients</span>
+                            <div class="summary-icon icon-blue">👥</div>
+                        </div>
+
+                        <h2 class="summary-number mb-0">120</h2>
+                        <small class="text-muted">Registered patients</small>
+
                     </div>
                 </div>
             </div>
+
 
             <!-- Today's Appointments -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
+            <div class="col-6 col-lg-3">
+                <div class="card summary-card h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-muted">
-                            Today's Appointments
-                        </h5>
 
-                        <h2 class="text-success">8</h2>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="summary-label">Today's Appointments</span>
+                            <div class="summary-icon icon-green">📅</div>
+                        </div>
+
+                        <h2 class="summary-number mb-0" id="todayCount">0</h2>
+                        <small class="text-muted">Scheduled appointments</small>
+
                     </div>
                 </div>
             </div>
 
-            <!-- Pending Appointments -->
-            <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-muted">
-                            Pending Appointments
-                        </h5>
 
-                        <h2 class="text-warning">2</h2>
+            <!-- Pending Appointments -->
+            <div class="col-6 col-lg-3">
+                <div class="card summary-card h-100">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="summary-label">Pending Appointments</span>
+                            <div class="summary-icon icon-yellow">⏳</div>
+                        </div>
+
+                        <h2 class="summary-number mb-0" id="pendingCount">0</h2>
+                        <small class="text-muted">Waiting for confirmation</small>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Confirmed Appointments -->
+            <div class="col-6 col-lg-3">
+                <div class="card summary-card h-100">
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="summary-label">Confirmed</span>
+                            <div class="summary-icon icon-purple">✔️</div>
+                        </div>
+
+                        <h2 class="summary-number mb-0" id="confirmedCount">0</h2>
+                        <small class="text-muted">Confirmed appointments</small>
+
                     </div>
                 </div>
             </div>
 
         </div>
 
-    </div>
+
+        <!-- Charts Row 1 -->
+        <div class="row g-4 mb-4">
+
+            <!-- Weekly Bar Chart -->
+            <div class="col-lg-8">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body p-4">
+
+                        <h5 class="section-title">Weekly Appointment Statistics</h5>
+
+                        <p class="text-muted small">
+                            Appointment bookings from 16–20 November 2026.
+                        </p>
+
+                        <div class="chart-container">
+                            <canvas id="appointmentChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
 
-    <!-- Recent Appointments -->
-    <div class="container mt-4">
+            <!-- Doughnut Chart -->
+            <div class="col-lg-4">
+                <div class="card dashboard-card h-100">
+                    <div class="card-body p-4">
 
-        <div class="card shadow-sm border-0">
+                        <h5 class="section-title">Appointment Status</h5>
 
-            <div class="card-body">
+                        <p class="text-muted small">
+                            Overview of confirmed, pending and cancelled appointments.
+                        </p>
 
-                <h4 class="mb-3">Recent Appointments</h4>
+                        <div class="chart-container">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Monthly Appointment Trend -->
+        <div class="row g-4 mb-4">
+            <div class="col-12">
+
+                <div class="card dashboard-card">
+                    <div class="card-body p-4">
+
+                        <h5 class="section-title">Monthly Appointment Trend</h5>
+
+                        <p class="text-muted small">
+                            Monthly appointment activity from June to November 2026.
+                            November data is recorded up to 16 November.
+                        </p>
+
+                        <div class="chart-container">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Recent Appointments -->
+        <div class="card dashboard-card mb-4">
+            <div class="card-body p-4">
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3 appointment-heading">
+
+                    <div>
+                        <h5 class="section-title mb-1">Recent Appointments</h5>
+
+                        <p class="text-muted small mb-0">
+                            Manage and view appointment records.
+                        </p>
+                    </div>
+
+                    <!-- Sorting Buttons -->
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary sort-btn active"
+                            id="sortAscending"
+                            onclick="changeSortOrder('asc')">
+
+                            ↑ Ascending
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-primary sort-btn"
+                            id="sortDescending"
+                            onclick="changeSortOrder('desc')">
+
+                            ↓ Descending
+                        </button>
+
+                        <a href="appointments.html" class="btn btn-sm btn-primary">
+                            View All
+                        </a>
+
+                    </div>
+                </div>
+
 
                 <div class="table-responsive">
 
-                    <table class="table table-striped table-hover align-middle">
+                    <table class="table table-hover align-middle mb-0">
 
-                        <thead class="table-primary">
+                        <thead>
                             <tr>
                                 <th>Patient Name</th>
                                 <th>Date</th>
@@ -149,48 +570,10 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="recentAppointmentsTable">
                             <tr>
-                                <td>Intan Nadhirah</td>
-                                <td>29 Oct 2026</td>
-                                <td>10:00 AM</td>
-                                <td>
-                                    <span class="badge bg-success">
-                                        Confirmed
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Saidatul Akma</td>
-                                <td>29 Oct 2026</td>
-                                <td>11:30 AM</td>
-                                <td>
-                                    <span class="badge bg-warning text-dark">
-                                        Pending
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Damia Izzati</td>
-                                <td>30 Oct 2026</td>
-                                <td>2:00 PM</td>
-                                <td>
-                                    <span class="badge bg-success">
-                                        Confirmed
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Anis Amira</td>
-                                <td>31 Oct 2026</td>
-                                <td>3:00 PM</td>
-                                <td>
-                                    <span class="badge bg-warning text-dark">
-                                        Pending
-                                    </span>
+                                <td colspan="4" class="empty-message">
+                                    Loading appointment records...
                                 </td>
                             </tr>
                         </tbody>
@@ -200,31 +583,14 @@
                 </div>
 
             </div>
-
         </div>
 
-    </div>
 
-
-    <!-- Appointment Statistics Chart -->
-    <div class="container mt-4 mb-5">
-
-        <div class="card shadow-sm border-0">
-
-            <div class="card-body">
-
-                <h4 class="mb-3">Appointment Statistics</h4>
-
-                <p class="text-muted">
-                    Number of appointments from Monday to Friday.
-                </p>
-
-                <div style="position: relative; height: 300px; width: 100%;">
-                    <canvas id="appointmentChart"></canvas>
-                </div>
-
-            </div>
-
+        <!-- Footer -->
+        <div class="text-center py-3">
+            <p class="footer-text mb-0">
+                © 2026 SmileCare Dental Clinic Management System
+            </p>
         </div>
 
     </div>
@@ -236,62 +602,729 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Create Appointment Chart -->
-    <script>
-        const chartCanvas = document.getElementById("appointmentChart");
 
-        new Chart(chartCanvas, {
+    <script>
+
+        // ==========================================
+        // APPOINTMENT DATA
+        // ==========================================
+
+        const STORAGE_KEY = "smilecareAppointments";
+
+        let currentSortOrder = "asc";
+
+
+        // Get appointments from localStorage
+        function getAppointments() {
+
+            try {
+                const records = JSON.parse(
+                    localStorage.getItem(STORAGE_KEY)
+                ) || [];
+
+                return Array.isArray(records) ? records : [];
+
+            } catch (error) {
+                return [];
+            }
+        }
+
+
+        // ==========================================
+        // UPDATE AKMA APPOINTMENT STATUS
+        // ==========================================
+
+        function updateAkmaStatus() {
+
+            const appointments = getAppointments();
+
+            let updated = false;
+
+            appointments.forEach(function(appointment) {
+
+                const patientName = (
+                    appointment.patientName || ""
+                ).toLowerCase();
+
+                if (
+                    patientName.includes("akma") &&
+                    (appointment.status || "").toLowerCase() !== "cancelled"
+                ) {
+
+                    appointment.status = "Cancelled";
+                    updated = true;
+
+                }
+
+            });
+
+            if (updated) {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(appointments)
+                );
+            }
+
+        }
+
+
+        // Convert appointment time into minutes
+        function convertTimeToMinutes(time) {
+
+            if (!time) {
+                return 0;
+            }
+
+            const parts = time.trim().split(" ");
+            const timeParts = parts[0].split(":");
+
+            let hours = Number(timeParts[0]);
+            const minutes = Number(timeParts[1]);
+
+            const period = (parts[1] || "").toUpperCase();
+
+            if (period === "PM" && hours !== 12) {
+                hours += 12;
+            }
+
+            if (period === "AM" && hours === 12) {
+                hours = 0;
+            }
+
+            return (hours * 60) + minutes;
+        }
+
+
+        // Sort appointments by date and time
+        function sortAppointments(appointments) {
+
+            return appointments.sort(function(a, b) {
+
+                const dateDifference =
+                    (a.date || "").localeCompare(b.date || "");
+
+                if (dateDifference !== 0) {
+                    return currentSortOrder === "asc"
+                        ? dateDifference
+                        : -dateDifference;
+                }
+
+                const timeDifference =
+                    convertTimeToMinutes(a.time) -
+                    convertTimeToMinutes(b.time);
+
+                return currentSortOrder === "asc"
+                    ? timeDifference
+                    : -timeDifference;
+
+            });
+        }
+
+
+        // Change sorting order
+        function changeSortOrder(order) {
+
+            currentSortOrder = order;
+
+            displayRecentAppointments();
+            updateSortButtons();
+
+        }
+
+
+        // Update sorting button appearance
+        function updateSortButtons() {
+
+            const ascendingButton =
+                document.getElementById("sortAscending");
+
+            const descendingButton =
+                document.getElementById("sortDescending");
+
+            ascendingButton.classList.toggle(
+                "active",
+                currentSortOrder === "asc"
+            );
+
+            descendingButton.classList.toggle(
+                "active",
+                currentSortOrder === "desc"
+            );
+
+        }
+
+
+        // Format date
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+                return "-";
+            }
+
+            const parts = dateValue.split("-");
+
+            if (parts.length !== 3) {
+                return dateValue;
+            }
+
+            const date = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+
+            return date.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+        }
+
+
+        // Escape HTML text
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(/[&<>"']/g, function(character) {
+
+                const characters = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                };
+
+                return characters[character];
+
+            });
+
+        }
+
+
+        // Get status badge
+        function getStatusBadge(status) {
+
+            const currentStatus = (status || "Pending").toLowerCase();
+
+            if (currentStatus === "confirmed") {
+
+                return `
+                    <span class="badge status-confirmed rounded-pill px-3 py-2">
+                        Confirmed
+                    </span>
+                `;
+
+            }
+
+            if (currentStatus === "cancelled") {
+
+                return `
+                    <span class="badge status-cancelled rounded-pill px-3 py-2">
+                        Cancelled
+                    </span>
+                `;
+
+            }
+
+            return `
+                <span class="badge status-pending rounded-pill px-3 py-2">
+                    Pending
+                </span>
+            `;
+
+        }
+
+
+        // Display recent appointments
+        function displayRecentAppointments() {
+
+            const table = document.getElementById("recentAppointmentsTable");
+
+            const appointments = sortAppointments(getAppointments());
+
+            table.innerHTML = "";
+
+            if (appointments.length === 0) {
+
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-message">
+                            No appointment records found.
+                        </td>
+                    </tr>
+                `;
+
+                updateSortButtons();
+                return;
+
+            }
+
+            // Display the first 8 appointments
+            const recentAppointments = appointments.slice(0, 8);
+
+            recentAppointments.forEach(function(appointment) {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+
+                    <td class="patient-name">
+                        ${escapeHTML(appointment.patientName)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(formatDate(appointment.date))}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(appointment.time || "-")}
+                    </td>
+
+                    <td>
+                        ${getStatusBadge(appointment.status)}
+                    </td>
+
+                `;
+
+                table.appendChild(row);
+
+            });
+
+            updateSortButtons();
+
+        }
+
+
+        // Update summary cards
+        function updateAppointmentSummary() {
+
+            const appointments = getAppointments();
+
+            const confirmed = appointments.filter(function(appointment) {
+
+                return (appointment.status || "").toLowerCase() === "confirmed";
+
+            }).length;
+
+            const pending = appointments.filter(function(appointment) {
+
+                return (appointment.status || "Pending").toLowerCase() === "pending";
+
+            }).length;
+
+            const cancelled = appointments.filter(function(appointment) {
+
+                return (appointment.status || "").toLowerCase() === "cancelled";
+
+            }).length;
+
+            const today = new Date();
+
+            const todayString =
+                today.getFullYear() + "-" +
+                String(today.getMonth() + 1).padStart(2, "0") + "-" +
+                String(today.getDate()).padStart(2, "0");
+
+            const todayAppointments = appointments.filter(function(appointment) {
+
+                return appointment.date === todayString &&
+                    (appointment.status || "").toLowerCase() !== "cancelled";
+
+            }).length;
+
+            document.getElementById("confirmedCount").textContent = confirmed;
+            document.getElementById("pendingCount").textContent = pending;
+            document.getElementById("todayCount").textContent = todayAppointments;
+
+            // Update doughnut chart
+            if (window.statusChart) {
+
+                window.statusChart.data.datasets[0].data = [
+                    confirmed,
+                    pending,
+                    cancelled
+                ];
+
+                window.statusChart.update();
+
+            }
+
+        }
+
+
+        // ==========================================
+        // DARK MODE FUNCTIONS
+        // ==========================================
+
+        function updateThemeIcon() {
+
+            const themeButton = document.getElementById("themeToggle");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+                themeButton.textContent = "☀️";
+            } else {
+                themeButton.textContent = "🌙";
+            }
+
+        }
+
+
+        function toggleDarkMode() {
+
+            document.documentElement.classList.toggle("dark-mode");
+
+            const currentTheme =
+                document.documentElement.classList.contains("dark-mode")
+                    ? "dark"
+                    : "light";
+
+            localStorage.setItem("smilecareTheme", currentTheme);
+
+            updateThemeIcon();
+            updateChartTheme();
+
+        }
+
+
+        // ==========================================
+        // CHART THEME FUNCTION
+        // ==========================================
+
+        function updateChartTheme() {
+
+            const isDarkMode =
+                document.documentElement.classList.contains("dark-mode");
+
+            const chartTextColor = isDarkMode ? "#dce8f1" : "#64748b";
+            const chartGridColor = isDarkMode ? "#35485b" : "#e5edf5";
+
+            Object.values(Chart.instances).forEach(function(chart) {
+
+                if (chart.options.scales) {
+
+                    Object.values(chart.options.scales).forEach(function(scale) {
+
+                        if (scale.ticks) {
+                            scale.ticks.color = chartTextColor;
+                        }
+
+                        if (scale.title) {
+                            scale.title.color = chartTextColor;
+                        }
+
+                        if (scale.grid) {
+                            scale.grid.color = chartGridColor;
+                        }
+
+                    });
+
+                }
+
+                if (
+                    chart.options.plugins &&
+                    chart.options.plugins.legend &&
+                    chart.options.plugins.legend.labels
+                ) {
+
+                    chart.options.plugins.legend.labels.color = chartTextColor;
+
+                }
+
+                chart.update();
+
+            });
+
+        }
+
+
+        // Set Theme Icon on Page Load
+        updateThemeIcon();
+
+
+        // Chart Text Colours
+        const isDarkMode =
+            document.documentElement.classList.contains("dark-mode");
+
+        const chartTextColor = isDarkMode ? "#dce8f1" : "#64748b";
+        const chartGridColor = isDarkMode ? "#35485b" : "#e5edf5";
+
+
+        // ==========================================
+        // 1. WEEKLY APPOINTMENT BAR CHART
+        // ==========================================
+
+        new Chart(document.getElementById("appointmentChart"), {
+
             type: "bar",
 
             data: {
+
                 labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
 
                 datasets: [{
-                    label: "Number of Appointments",
-                    data: [5, 8, 6, 10, 7],
+
+                    label: "Appointments",
+
+                    data: [8, 10, 7, 12, 9],
+
                     backgroundColor: [
-                        "#0d6efd",
-                        "#198754",
-                        "#ffc107",
-                        "#0dcaf0",
-                        "#6f42c1"
+                        "#4b8df8",
+                        "#42bda5",
+                        "#f5c451",
+                        "#55c4d8",
+                        "#9675db"
                     ],
-                    borderWidth: 1
+
+                    borderRadius: 8,
+                    borderSkipped: false
+
                 }]
+
             },
 
             options: {
+
                 responsive: true,
                 maintainAspectRatio: false,
 
                 scales: {
+
                     y: {
+
                         beginAtZero: true,
+
                         ticks: {
-                            stepSize: 1
+                            stepSize: 2,
+                            color: chartTextColor
                         },
+
+                        grid: {
+                            color: chartGridColor
+                        },
+
                         title: {
                             display: true,
-                            text: "Number of Appointments"
+                            text: "Number of Appointments",
+                            color: chartTextColor
                         }
+
                     },
 
                     x: {
-                        title: {
-                            display: true,
-                            text: "Day"
+
+                        ticks: {
+                            color: chartTextColor
+                        },
+
+                        grid: {
+                            display: false
                         }
+
                     }
+
                 },
 
                 plugins: {
+
                     legend: {
-                        display: true,
-                        position: "top"
+                        display: false
                     }
+
                 }
+
             }
+
         });
+
+
+        // ==========================================
+        // 2. APPOINTMENT STATUS DOUGHNUT CHART
+        // ==========================================
+
+        window.statusChart = new Chart(document.getElementById("statusChart"), {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: ["Confirmed", "Pending", "Cancelled"],
+
+                datasets: [{
+
+                    data: [0, 0, 0],
+
+                    backgroundColor: [
+                        "#42bda5",
+                        "#f5c451",
+                        "#e57373"
+                    ],
+
+                    borderWidth: 0,
+                    hoverOffset: 8
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "70%",
+
+                plugins: {
+
+                    legend: {
+
+                        position: "bottom",
+
+                        labels: {
+                            color: chartTextColor,
+                            padding: 18
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+        // ==========================================
+        // 3. MONTHLY APPOINTMENT TREND LINE CHART
+        // ==========================================
+
+        new Chart(document.getElementById("trendChart"), {
+
+            type: "line",
+
+            data: {
+
+                labels: [
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November"
+                ],
+
+                datasets: [{
+
+                    label: "Number of Appointments",
+
+                    data: [35, 42, 38, 50, 55, 48],
+
+                    borderColor: "#3b82c4",
+
+                    backgroundColor: "rgba(59, 130, 196, 0.15)",
+
+                    fill: true,
+                    tension: 0.4,
+
+                    pointBackgroundColor: "#42bda5",
+                    pointBorderColor: "#ffffff",
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+                            stepSize: 10,
+                            color: chartTextColor
+                        },
+
+                        grid: {
+                            color: chartGridColor
+                        },
+
+                        title: {
+                            display: true,
+                            text: "Number of Appointments",
+                            color: chartTextColor
+                        }
+
+                    },
+
+                    x: {
+
+                        ticks: {
+                            color: chartTextColor
+                        },
+
+                        grid: {
+                            display: false
+                        }
+
+                    }
+
+                },
+
+                plugins: {
+
+                    legend: {
+
+                        labels: {
+                            color: chartTextColor
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+        // ==========================================
+        // INITIALIZE DASHBOARD
+        // ==========================================
+
+        // Change Akma's appointment status to Cancelled
+        updateAkmaStatus();
+
+        // Apply chart colours
+        updateChartTheme();
+
+        // Load appointment records
+        displayRecentAppointments();
+
+        // Update summary cards and doughnut chart
+        updateAppointmentSummary();
+
+
+        // ==========================================
+        // REFRESH WHEN DATA CHANGES IN ANOTHER TAB
+        // ==========================================
+
+        window.addEventListener("storage", function(event) {
+
+            if (event.key === STORAGE_KEY) {
+
+                displayRecentAppointments();
+                updateAppointmentSummary();
+
+            }
+
+        });
+
     </script>
 
 </body>

@@ -7,17 +7,302 @@
 
     <title>Patient Records | SmileCare Dental Clinic</title>
 
-    <!-- Bootstrap 5 CSS -->
+    <!-- Apply Saved Theme -->
+    <script>
+        if (localStorage.getItem("smilecareTheme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Poppins', sans-serif;
+            color: #26374a;
+            transition: 0.3s;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #12304a;
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            font-size: 21px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+        }
+
+        .nav-link {
+            color: #dce8f1 !important;
+            margin-left: 10px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #5ee0d0 !important;
+        }
+
+        /* Dark Mode Button */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background-color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* Page Heading */
+        .page-title {
+            color: #12304a;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Summary Cards */
+        .summary-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+            transition: 0.3s;
+            height: 100%;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .summary-card h6 {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card h3 {
+            color: #12304a;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .summary-icon {
+            font-size: 25px;
+        }
+
+        /* Table Card */
+        .table-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+        }
+
+        .table thead th {
+            background-color: #eaf2fa;
+            color: #23415c;
+            padding: 14px 10px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 13px 10px;
+            font-size: 13px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f4f8fc;
+        }
+
+        .search-box {
+            max-width: 280px;
+            border-radius: 8px;
+            font-size: 13px;
+            padding: 10px 13px;
+        }
+
+        .sort-btn {
+            font-size: 12px;
+            border-radius: 7px;
+            padding: 8px 12px;
+        }
+
+        .sort-btn.active {
+            background-color: #12304a;
+            color: white;
+        }
+
+        .entries-select {
+            width: 75px;
+            font-size: 13px;
+            display: inline-block;
+        }
+
+        .entries-label {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .pagination {
+            margin-bottom: 0;
+        }
+
+        .pagination .page-link {
+            color: #12304a;
+            font-size: 13px;
+        }
+
+        .pagination .active .page-link {
+            background-color: #12304a;
+            border-color: #12304a;
+            color: white;
+        }
+
+        .pagination .disabled .page-link {
+            color: #adb5bd;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 25px;
+            color: #718096;
+        }
+
+        /* Dark Mode */
+        html.dark-mode body {
+            background-color: #101c29;
+            color: #e4edf5;
+        }
+
+        html.dark-mode .summary-card,
+        html.dark-mode .table-card {
+            background-color: #1e2d3d;
+            color: #e4edf5;
+        }
+
+        html.dark-mode .page-title,
+        html.dark-mode .summary-card h3 {
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .page-subtitle,
+        html.dark-mode .summary-card h6,
+        html.dark-mode .entries-label {
+            color: #aebdca;
+        }
+
+        html.dark-mode .table {
+            color: #e4edf5;
+            --bs-table-bg: #1e2d3d;
+            --bs-table-color: #e4edf5;
+            --bs-table-border-color: #35485b;
+            --bs-table-hover-bg: #293d50;
+            --bs-table-hover-color: #ffffff;
+        }
+
+        html.dark-mode .table thead th {
+            background-color: #293d50;
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .form-control,
+        html.dark-mode .form-select {
+            background-color: #293d50;
+            border-color: #40566b;
+            color: white;
+        }
+
+        html.dark-mode .form-control::placeholder {
+            color: #aebdca;
+        }
+
+        html.dark-mode .sort-btn {
+            border-color: #8bd5f0;
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .sort-btn.active {
+            background-color: #8bd5f0;
+            color: #101c29;
+        }
+
+        html.dark-mode .theme-btn {
+            background-color: #34495e;
+        }
+
+        html.dark-mode .pagination .page-link {
+            background-color: #293d50;
+            border-color: #40566b;
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .pagination .active .page-link {
+            background-color: #8bd5f0;
+            color: #101c29;
+        }
+
+        @media (max-width: 768px) {
+            .table-card {
+                padding: 15px;
+            }
+
+            .page-title {
+                font-size: 23px;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .theme-btn {
+                margin: 10px 0;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
 
             <a class="navbar-brand" href="admin.html">
+                <img src="images/logo.png" alt="SmileCare Logo">
                 SmileCare Admin
             </a>
 
@@ -32,7 +317,8 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
 
                     <li class="nav-item">
                         <a class="nav-link" href="admin.html">Dashboard</a>
@@ -50,164 +336,633 @@
                         <a class="nav-link" href="index.html">Logout</a>
                     </li>
 
+                    <li class="nav-item">
+                        <button
+                            type="button"
+                            class="theme-btn"
+                            id="themeToggle"
+                            onclick="toggleDarkMode()"
+                            aria-label="Toggle dark mode"
+                            title="Toggle Dark Mode">
+
+                            🌙
+                        </button>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Page Heading -->
-    <div class="container mt-4">
-        <h2 class="text-primary">Patient Records</h2>
-        <p class="text-muted">
-            View patient information and dental treatment records.
-        </p>
-    </div>
 
-    <!-- Patient Summary Cards -->
-    <div class="container mt-4">
-        <div class="row g-3">
+    <!-- Main Content -->
+    <div class="container py-4">
+
+        <div class="mb-4">
+            <h2 class="page-title">Patient Records</h2>
+            <p class="page-subtitle">
+                View and manage registered patient information.
+            </p>
+        </div>
+
+
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4">
 
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">Total Patients</h6>
-                        <h2 class="text-primary">120</h2>
-                        <p class="text-muted mb-0">All registered patients</p>
+                <div class="summary-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6>Total Patients</h6>
+                            <h3>120</h3>
+                        </div>
+                        <span class="summary-icon">👥</span>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">New Patients</h6>
-                        <h2 class="text-success">15</h2>
-                        <p class="text-muted mb-0">Newly registered patients</p>
+                <div class="summary-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6>New Patients</h6>
+                            <h3>15</h3>
+                        </div>
+                        <span class="summary-icon">🆕</span>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">Active Patients</h6>
-                        <h2 class="text-info">105</h2>
-                        <p class="text-muted mb-0">Patients with clinic records</p>
+                <div class="summary-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6>Returning Patients</h6>
+                            <h3>105</h3>
+                        </div>
+                        <span class="summary-icon">🔄</span>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
 
-    <!-- Patient List and Treatment Records -->
-    <div class="container mt-4 mb-5">
-        <div class="card shadow-sm border-0">
-            <div class="card-body">
 
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-md-6">
-                        <h5 class="mb-0">Patient List</h5>
-                        <small class="text-muted">
-                            Patient details and latest treatment
-                        </small>
-                    </div>
+        <!-- Patient Table -->
+        <div class="table-card">
 
-                    <div class="col-md-6">
-                        <input
-                            type="text"
-                            id="searchPatient"
-                            class="form-control"
-                            placeholder="Search name, email or treatment..."
-                        >
-                    </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+                <div>
+                    <h5 class="fw-bold mb-1">Patient List</h5>
+                    <small class="text-secondary">
+                        Patient details and latest treatment records
+                    </small>
                 </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-
-                        <thead class="table-primary">
-                            <tr>
-                                <th>No.</th>
-                                <th>Patient Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Last Treatment</th>
-                                <th>Dentist</th>
-                                <th>Last Visit</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="patientTable">
-
-                            <tr>
-                                <td>1</td>
-                                <td>Intan Nadhirah</td>
-                                <td>intan@gmail.com</td>
-                                <td>012-3456789</td>
-                                <td>Dental Scaling</td>
-                                <td>Dr. Sarah</td>
-                                <td>20 Oct 2026</td>
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Saidatul Akma</td>
-                                <td>saidatul@gmail.com</td>
-                                <td>013-4567890</td>
-                                <td>Tooth Filling</td>
-                                <td>Dr. Daniel</td>
-                                <td>22 Sep 2026</td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>Damia Izzati</td>
-                                <td>damia@gmail.com</td>
-                                <td>014-5678901</td>
-                                <td>Dental Check-up</td>
-                                <td>Dr. Sarah</td>
-                                <td>15 Aug 2026</td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>Anis Amira</td>
-                                <td>anis@gmail.com</td>
-                                <td>016-6789012</td>
-                                <td>Tooth Extraction</td>
-                                <td>Dr. Daniel</td>
-                                <td>10 Aug 2026</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <p class="text-muted small mb-0">
-                    Note: Patient and treatment information shown here is for demonstration purposes.
-                </p>
+                <input type="text" id="searchInput"
+                    class="form-control search-box"
+                    placeholder="🔍 Search patient...">
 
             </div>
+
+
+            <!-- Table Controls -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="entries-label">Show</span>
+
+                    <select id="entriesSelect" class="form-select entries-select">
+                        <option value="10" selected>10</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+
+                    <span class="entries-label">entries</span>
+                </div>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="small fw-semibold">Sort by Date:</span>
+
+                    <button class="btn btn-outline-primary sort-btn"
+                        id="sortAscending"
+                        onclick="changeSortOrder('asc')">
+                        ↑ Ascending
+                    </button>
+
+                    <button class="btn btn-outline-primary sort-btn active"
+                        id="sortDescending"
+                        onclick="changeSortOrder('desc')">
+                        ↓ Descending
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Patient Table -->
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle" id="patientTable">
+
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Patient Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Last Treatment</th>
+                            <th>Dentist</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="patientTableBody">
+
+                        <!-- November 2026 -->
+                        <tr data-date="2026-11-17">
+                            <td></td><td>Damia Izzati</td><td>damia@gmail.com</td>
+                            <td>014-567 8901</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>17 Nov 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-11-16">
+                            <td></td><td>Intan Nadhirah</td><td>intan@gmail.com</td>
+                            <td>012-345 6789</td><td>Dental Scaling</td>
+                            <td>Dr. Raudah</td><td>16 Nov 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-11-16">
+                            <td></td><td>Saidatul Akma</td><td>saidatul@gmail.com</td>
+                            <td>013-456 7890</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>16 Nov 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-11-10">
+                            <td></td><td>Nur Amani</td><td>amani@gmail.com</td>
+                            <td>011-222 3344</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>10 Nov 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-11-04">
+                            <td></td><td>Haris Danish</td><td>haris@gmail.com</td>
+                            <td>012-333 4455</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>4 Nov 2026</td>
+                        </tr>
+
+                        <!-- October 2026 -->
+                        <tr data-date="2026-10-28">
+                            <td></td><td>Nur Amirah</td><td>amirah@gmail.com</td>
+                            <td>011-234 5678</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>28 Oct 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-10-22">
+                            <td></td><td>Qistina Maisarah</td><td>qistina@gmail.com</td>
+                            <td>013-222 3344</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>22 Oct 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-10-14">
+                            <td></td><td>Haziq Daniel</td><td>haziq@gmail.com</td>
+                            <td>012-345 6780</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>14 Oct 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-10-08">
+                            <td></td><td>Amira Sofea</td><td>amira@gmail.com</td>
+                            <td>014-222 3344</td><td>Tooth Extraction</td>
+                            <td>Dr. Raudah</td><td>8 Oct 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-10-02">
+                            <td></td><td>Faris Iman</td><td>faris@gmail.com</td>
+                            <td>016-333 4455</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>2 Oct 2026</td>
+                        </tr>
+
+                        <!-- September 2026 -->
+                        <tr data-date="2026-09-25">
+                            <td></td><td>Balqis Hana</td><td>balqis@gmail.com</td>
+                            <td>013-456 7891</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>25 Sep 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-09-20">
+                            <td></td><td>Adam Firdaus</td><td>adam@gmail.com</td>
+                            <td>014-567 8902</td><td>Tooth Extraction</td>
+                            <td>Dr. Raudah</td><td>20 Sep 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-09-15">
+                            <td></td><td>Nur Syafiqah</td><td>syafiqah@gmail.com</td>
+                            <td>012-444 5566</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>15 Sep 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-09-11">
+                            <td></td><td>Adam Firdaus</td><td>adam.firdaus@gmail.com</td>
+                            <td>014-567 8902</td><td>Tooth Extraction</td>
+                            <td>Dr. Raudah</td><td>11 Sep 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-09-05">
+                            <td></td><td>Puteri Alya</td><td>alya@gmail.com</td>
+                            <td>017-444 5566</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>5 Sep 2026</td>
+                        </tr>
+
+                        <!-- August 2026 -->
+                        <tr data-date="2026-08-28">
+                            <td></td><td>Hakim Zafran</td><td>hakim@gmail.com</td>
+                            <td>018-222 3344</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>28 Aug 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-08-20">
+                            <td></td><td>Nur Aisyah</td><td>aisyah@gmail.com</td>
+                            <td>011-234 5678</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>20 Aug 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-08-15">
+                            <td></td><td>Syed Irfan</td><td>irfan@gmail.com</td>
+                            <td>019-555 6677</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>15 Aug 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-08-05">
+                            <td></td><td>Aina Sofea</td><td>aina@gmail.com</td>
+                            <td>012-678 9012</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>5 Aug 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-08-02">
+                            <td></td><td>Danial Hakimi</td><td>danial@gmail.com</td>
+                            <td>016-777 8899</td><td>Dental Check-up</td>
+                            <td>Dr. Raudah</td><td>2 Aug 2026</td>
+                        </tr>
+
+                        <!-- July 2026 -->
+                        <tr data-date="2026-07-28">
+                            <td></td><td>Amir Hakim</td><td>amir@gmail.com</td>
+                            <td>013-789 0123</td><td>Dental Check-up</td>
+                            <td>Dr. Raudah</td><td>28 Jul 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-07-24">
+                            <td></td><td>Sarah Imani</td><td>sarah@gmail.com</td>
+                            <td>017-888 9900</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>24 Jul 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-07-18">
+                            <td></td><td>Fatin Azzahra</td><td>fatin@gmail.com</td>
+                            <td>018-999 0011</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>18 Jul 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-07-12">
+                            <td></td><td>Siti Nurul</td><td>siti@gmail.com</td>
+                            <td>014-890 1234</td><td>Tooth Extraction</td>
+                            <td>Dr. Sarah</td><td>12 Jul 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-07-05">
+                            <td></td><td>Arif Rayyan</td><td>arif@gmail.com</td>
+                            <td>011-888 9900</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>5 Jul 2026</td>
+                        </tr>
+
+                        <!-- June 2026 -->
+                        <tr data-date="2026-06-28">
+                            <td></td><td>Maisarah Nadia</td><td>maisarah@gmail.com</td>
+                            <td>012-999 0011</td><td>Dental Scaling</td>
+                            <td>Dr. Raudah</td><td>28 Jun 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-06-25">
+                            <td></td><td>Muhammad Danish</td><td>danish@gmail.com</td>
+                            <td>012-567 8901</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>25 Jun 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-06-20">
+                            <td></td><td>Nurul Iman</td><td>nurul@gmail.com</td>
+                            <td>013-678 9012</td><td>Dental Check-up</td>
+                            <td>Dr. Sarah</td><td>20 Jun 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-06-15">
+                            <td></td><td>Afiqah Balqis</td><td>afiqah@gmail.com</td>
+                            <td>014-789 0123</td><td>Dental Scaling</td>
+                            <td>Dr. Raudah</td><td>15 Jun 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-06-10">
+                            <td></td><td>Raihan Azmi</td><td>raihan@gmail.com</td>
+                            <td>017-111 2233</td><td>Tooth Extraction</td>
+                            <td>Dr. Teha</td><td>10 Jun 2026</td>
+                        </tr>
+
+                        <!-- May 2026 -->
+                        <tr data-date="2026-05-28">
+                            <td></td><td>Hana Maisarah</td><td>hana@gmail.com</td>
+                            <td>016-111 2233</td><td>Dental Check-up</td>
+                            <td>Dr. Sarah</td><td>28 May 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-05-21">
+                            <td></td><td>Iman Hakimi</td><td>iman@gmail.com</td>
+                            <td>019-222 3344</td><td>Dental Scaling</td>
+                            <td>Dr. Raudah</td><td>21 May 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-05-14">
+                            <td></td><td>Nur Aleesya</td><td>aleesya@gmail.com</td>
+                            <td>018-333 4455</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>14 May 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-05-08">
+                            <td></td><td>Amirul Naim</td><td>amirul@gmail.com</td>
+                            <td>017-444 5566</td><td>Dental Check-up</td>
+                            <td>Dr. Teha</td><td>8 May 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-05-02">
+                            <td></td><td>Dayana Sofea</td><td>dayana@gmail.com</td>
+                            <td>016-555 6677</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>2 May 2026</td>
+                        </tr>
+
+                        <!-- April 2026 -->
+                        <tr data-date="2026-04-25">
+                            <td></td><td>Rizqi Danish</td><td>rizqi@gmail.com</td>
+                            <td>015-666 7788</td><td>Tooth Filling</td>
+                            <td>Dr. Fatin</td><td>25 Apr 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-04-18">
+                            <td></td><td>Nur Damia</td><td>damia.nur@gmail.com</td>
+                            <td>014-777 8899</td><td>Dental Check-up</td>
+                            <td>Dr. Raudah</td><td>18 Apr 2026</td>
+                        </tr>
+
+                        <tr data-date="2026-04-10">
+                            <td></td><td>Adam Firdaus</td><td>adam.firdaus2@gmail.com</td>
+                            <td>013-888 9900</td><td>Dental Scaling</td>
+                            <td>Dr. Sarah</td><td>10 Apr 2026</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div id="noResults" class="empty-message" style="display:none;">
+                    No patient records found.
+                </div>
+
+            </div>
+
+
+            <!-- Table Footer -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-3">
+
+                <small id="showingInfo" class="entries-label">
+                    Showing 1 to 10 of 38 entries
+                </small>
+
+                <nav>
+                    <ul class="pagination" id="pagination"></ul>
+                </nav>
+
+            </div>
+
         </div>
+
     </div>
 
-    <!-- Patient Search Function -->
-    <script>
-        document.getElementById("searchPatient").addEventListener("input", function () {
-            const searchValue = this.value.toLowerCase();
-            const rows = document.querySelectorAll("#patientTable tr");
 
-            rows.forEach(function (row) {
-                const patientInfo = row.textContent.toLowerCase();
-
-                row.style.display = patientInfo.includes(searchValue) ? "" : "none";
-            });
-        });
-    </script>
-
-    <!-- Bootstrap JavaScript -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        // Dark Mode
+        function updateThemeIcon() {
+            const button = document.getElementById("themeToggle");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+                button.textContent = "☀️";
+            } else {
+                button.textContent = "🌙";
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle("dark-mode");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+                localStorage.setItem("smilecareTheme", "dark");
+            } else {
+                localStorage.setItem("smilecareTheme", "light");
+            }
+
+            updateThemeIcon();
+        }
+
+        updateThemeIcon();
+
+
+        // Patient Table Functions
+        const tableBody = document.getElementById("patientTableBody");
+        const searchInput = document.getElementById("searchInput");
+        const entriesSelect = document.getElementById("entriesSelect");
+        const pagination = document.getElementById("pagination");
+        const showingInfo = document.getElementById("showingInfo");
+        const noResults = document.getElementById("noResults");
+
+        const allRows = Array.from(tableBody.querySelectorAll("tr"));
+
+        let sortOrder = "desc";
+        let currentPage = 1;
+        let entriesPerPage = 10;
+
+
+        // Get filtered patient records
+        function getFilteredRows() {
+            const searchValue = searchInput.value.toLowerCase();
+
+            return allRows.filter(row => {
+                return row.textContent.toLowerCase().includes(searchValue);
+            });
+        }
+
+
+        // Sort Patient Records
+        function sortPatients(rows) {
+            return rows.sort((a, b) => {
+                const dateA = a.dataset.date;
+                const dateB = b.dataset.date;
+
+                if (sortOrder === "asc") {
+                    return dateA.localeCompare(dateB);
+                }
+
+                return dateB.localeCompare(dateA);
+            });
+        }
+
+
+        // Display Patient Records
+        function displayPatients() {
+
+            const filteredRows = sortPatients(getFilteredRows());
+
+            const totalEntries = filteredRows.length;
+            const totalPages = Math.ceil(totalEntries / entriesPerPage);
+
+            if (currentPage > totalPages) {
+                currentPage = Math.max(totalPages, 1);
+            }
+
+            const startIndex = (currentPage - 1) * entriesPerPage;
+            const endIndex = Math.min(startIndex + entriesPerPage, totalEntries);
+
+            allRows.forEach(row => {
+                row.style.display = "none";
+            });
+
+            filteredRows.forEach((row, index) => {
+
+                if (index >= startIndex && index < endIndex) {
+                    row.style.display = "";
+                    tableBody.appendChild(row);
+                    row.cells[0].textContent = index + 1;
+                }
+            });
+
+            noResults.style.display = totalEntries === 0 ? "block" : "none";
+
+            if (totalEntries === 0) {
+                showingInfo.textContent = "Showing 0 to 0 of 0 entries";
+            } else {
+                showingInfo.textContent =
+                    `Showing ${startIndex + 1} to ${endIndex} of ${totalEntries} entries`;
+            }
+
+            displayPagination(totalPages);
+        }
+
+
+        // Pagination
+        function displayPagination(totalPages) {
+
+            pagination.innerHTML = "";
+
+            if (totalPages <= 1) {
+                return;
+            }
+
+            // Previous Button
+            const previousItem = document.createElement("li");
+            previousItem.className = `page-item ${currentPage === 1 ? "disabled" : ""}`;
+
+            const previousLink = document.createElement("button");
+            previousLink.className = "page-link";
+            previousLink.textContent = "Previous";
+            previousLink.disabled = currentPage === 1;
+
+            previousLink.onclick = function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayPatients();
+                }
+            };
+
+            previousItem.appendChild(previousLink);
+            pagination.appendChild(previousItem);
+
+
+            // Page Numbers
+            for (let page = 1; page <= totalPages; page++) {
+
+                const pageItem = document.createElement("li");
+                pageItem.className = `page-item ${currentPage === page ? "active" : ""}`;
+
+                const pageLink = document.createElement("button");
+                pageLink.className = "page-link";
+                pageLink.textContent = page;
+
+                pageLink.onclick = function () {
+                    currentPage = page;
+                    displayPatients();
+                };
+
+                pageItem.appendChild(pageLink);
+                pagination.appendChild(pageItem);
+            }
+
+
+            // Next Button
+            const nextItem = document.createElement("li");
+            nextItem.className = `page-item ${currentPage === totalPages ? "disabled" : ""}`;
+
+            const nextLink = document.createElement("button");
+            nextLink.className = "page-link";
+            nextLink.textContent = "Next";
+            nextLink.disabled = currentPage === totalPages;
+
+            nextLink.onclick = function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    displayPatients();
+                }
+            };
+
+            nextItem.appendChild(nextLink);
+            pagination.appendChild(nextItem);
+        }
+
+
+        // Change Number of Entries
+        entriesSelect.addEventListener("change", function () {
+            entriesPerPage = Number(this.value);
+            currentPage = 1;
+            displayPatients();
+        });
+
+
+        // Search Patients
+        searchInput.addEventListener("input", function () {
+            currentPage = 1;
+            displayPatients();
+        });
+
+
+        // Change Sorting Order
+        function changeSortOrder(order) {
+
+            sortOrder = order;
+            currentPage = 1;
+
+            document.getElementById("sortAscending").classList.toggle(
+                "active", order === "asc"
+            );
+
+            document.getElementById("sortDescending").classList.toggle(
+                "active", order === "desc"
+            );
+
+            displayPatients();
+        }
+
+
+        // Initial Display
+        displayPatients();
+
+    </script>
 
 </body>
 </html>

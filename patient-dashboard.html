@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,32 +7,506 @@
 
     <title>Patient Dashboard | SmileCare Dental Clinic</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Apply Saved Theme Before Page Loads -->
+    <script>
+        if (localStorage.getItem("smilecareTheme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Poppins', sans-serif;
+            color: #26374a;
+            transition: 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #12304a;
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 21px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 4px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #dce8f1 !important;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #5ee0d0 !important;
+        }
+
+        /* DARK MODE BUTTON */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #12304a;
+            font-size: 18px;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            padding-top: 35px;
+            padding-bottom: 40px;
+        }
+
+        .page-title {
+            color: #123c56;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* SUMMARY CARDS */
+        .summary-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 23px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+            height: 100%;
+            transition: 0.3s;
+        }
+
+        .summary-card:hover {
+            background: #e8f8f6;
+            transform: translateY(-5px);
+        }
+
+        .summary-card h6 {
+            color: #718096;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .summary-card h3 {
+            color: #123c56;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .summary-card p {
+            color: #718096;
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        .card-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        /* CONTENT CARDS */
+        .content-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+        }
+
+        .section-title {
+            color: #123c56;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* TABLE */
+        .table {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            background-color: #e7f1f8;
+            color: #23465c;
+            padding: 14px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 14px;
+            font-size: 13px;
+            color: #26374a;
+        }
+
+        .table tbody tr:hover {
+            background-color: #dff5f2;
+        }
+
+        /* STATUS BADGES */
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .confirmed {
+            background: #d1f5e5;
+            color: #16834a;
+        }
+
+        .pending {
+            background: #fff0c2;
+            color: #a66b00;
+        }
+
+        /* BOOKING BUTTON */
+        .booking-btn {
+            background-color: #123c56;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .booking-btn:hover {
+            background-color: #1c657b;
+            color: white;
+        }
+
+        /* TREATMENT CARDS */
+        .treatment-card {
+            background: #f8fbfd;
+            border: 1px solid #e5edf4;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .treatment-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 15px rgba(20, 50, 80, 0.08);
+            border-color: #a8dcd7;
+        }
+
+        .treatment-card:focus-visible {
+            outline: 3px solid #5ee0d0;
+            outline-offset: 3px;
+        }
+
+        .treatment-icon {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .treatment-card h6 {
+            color: #23465c;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .treatment-price {
+            color: #168c83;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+
+        .treatment-arrow {
+            color: #168c83;
+            font-size: 22px;
+            display: inline-block;
+            animation: arrowMove 1.2s infinite;
+        }
+
+        @keyframes arrowMove {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(6px);
+            }
+        }
+
+        .price-note {
+            background: #eaf7f5;
+            color: #397b75;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        /* TREATMENT MODAL */
+        .treatment-modal .modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .treatment-modal .modal-header {
+            background: #12304a;
+            color: white;
+            border-bottom: none;
+            padding: 18px 22px;
+        }
+
+        .treatment-modal .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .treatment-modal .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .treatment-modal .modal-body {
+            padding: 22px;
+        }
+
+        .treatment-modal-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .modal-section-title {
+            color: #123c56;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+
+        .modal-description {
+            color: #596b7d;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .modal-price {
+            color: #168c83;
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .modal-booking-btn {
+            background: #123c56;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 11px 20px;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .modal-booking-btn:hover {
+            background: #1c657b;
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            color: #718096;
+            font-size: 12px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* DARK MODE */
+        .dark-mode body {
+            background-color: #101c29;
+            color: #dce8f1;
+        }
+
+        .dark-mode .page-title,
+        .dark-mode .section-title {
+            color: #8bd5f0;
+        }
+
+        .dark-mode .page-subtitle,
+        .dark-mode .summary-card h6,
+        .dark-mode .summary-card p {
+            color: #aebdca;
+        }
+
+        .dark-mode .summary-card,
+        .dark-mode .content-card {
+            background-color: #1e2d3d;
+        }
+
+        .dark-mode .summary-card:hover {
+            background-color: #293d50;
+        }
+
+        .dark-mode .summary-card h3 {
+            color: #8bd5f0;
+        }
+
+        .dark-mode .table thead th {
+            background-color: #293d50;
+            color: #dce8f1;
+        }
+
+        .dark-mode .table tbody td {
+            background-color: #1e2d3d;
+            color: #dce8f1;
+            border-color: #35485b;
+        }
+
+        .dark-mode .table tbody tr:hover td {
+            background-color: #293d50;
+        }
+
+        .dark-mode .theme-btn {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .dark-mode .treatment-card {
+            background-color: #293d50;
+            border-color: #35485b;
+        }
+
+        .dark-mode .treatment-card h6 {
+            color: #dce8f1;
+        }
+
+        .dark-mode .treatment-price,
+        .dark-mode .treatment-arrow {
+            color: #5ee0d0;
+        }
+
+        .dark-mode .price-note {
+            background-color: #293d50;
+            color: #a8dcd7;
+        }
+
+        .dark-mode .treatment-modal .modal-content {
+            background-color: #1e2d3d;
+            color: #dce8f1;
+        }
+
+        .dark-mode .modal-section-title {
+            color: #8bd5f0;
+        }
+
+        .dark-mode .modal-description {
+            color: #c1ced9;
+        }
+
+        .dark-mode footer {
+            color: #aebdca;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 17px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .content-card {
+                padding: 18px;
+            }
+
+            .theme-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .treatment-modal-img {
+                height: 200px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .treatment-arrow {
+                animation: none;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
 
             <a class="navbar-brand" href="patient-dashboard.html">
-                SmileCare
+                <img src="images/logo.png" alt="SmileCare Logo">
+                SmileCare Patient
             </a>
 
             <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu"
-                aria-controls="navbarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-
+                data-bs-toggle="collapse" data-bs-target="#navbarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
 
                     <li class="nav-item">
                         <a class="nav-link active" href="patient-dashboard.html">
@@ -51,212 +526,738 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <button class="theme-btn" id="themeButton"
+                            onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                            🌙
+                        </button>
+                    </li>
+
                 </ul>
             </div>
-
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
+    <div class="container main-content">
 
-    <!-- Welcome Message -->
-    <div class="container mt-4">
+        <!-- WELCOME SECTION -->
+        <div class="mb-4">
 
-        <h2 class="text-primary">Welcome, Intan Nadhirah!</h2>
+            <h2 class="page-title">
+                Welcome, Anis Amira!
+            </h2>
 
-        <p class="text-muted">
-            Welcome to your SmileCare patient dashboard.
-            View your appointment information below.
-        </p>
+            <p class="page-subtitle">
+                Welcome to your SmileCare Patient Dashboard.
+                Manage your dental appointments and view your records here.
+            </p>
 
-    </div>
+        </div>
 
+        <!-- SUMMARY CARDS -->
+        <div class="row g-4 mb-4">
 
-    <!-- Patient Summary Cards -->
-    <div class="container mt-4">
-
-        <div class="row g-3">
-
-            <!-- Next Appointment -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">Next Appointment</h6>
-                        <h4>29 Oct 2026</h4>
-                        <p class="mb-0">10:00 AM</p>
-                    </div>
+                <div class="summary-card">
+                    <div class="card-icon">📅</div>
+                    <h6>Next Appointment</h6>
+                    <h3 id="nextAppointmentDate">--</h3>
+                    <p id="nextAppointmentTime">No upcoming appointment</p>
                 </div>
             </div>
 
-            <!-- Appointment Status -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">Appointment Status</h6>
-                        <h4 class="text-success">Confirmed</h4>
-                        <p class="mb-0">Dental Scaling</p>
-                    </div>
+                <div class="summary-card">
+                    <div class="card-icon">🦷</div>
+                    <h6>Appointment Status</h6>
+                    <h3 id="appointmentStatus">--</h3>
+                    <p id="appointmentTreatment">No appointment available</p>
                 </div>
             </div>
 
-            <!-- Last Visit -->
             <div class="col-md-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-body">
-                        <h6 class="text-muted">Last Visit</h6>
-                        <h4>20 Oct 2026</h4>
-                        <p class="mb-0">Dental Scaling</p>
-                    </div>
+                <div class="summary-card">
+                    <div class="card-icon">📋</div>
+                    <h3>First Visit</h3>
+                    <p>New patient at SmileCare</p>
                 </div>
             </div>
 
         </div>
 
-    </div>
+        <!-- APPOINTMENT TABLE -->
+        <div class="content-card mb-4">
 
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
 
-    <!-- My Appointments -->
-    <div class="container mt-4 mb-5" id="appointments">
+                <h5 class="section-title mb-0">
+                    My Appointments
+                </h5>
 
-        <div class="card shadow-sm border-0">
+                <a href="book-appointment.html" class="booking-btn">
+                    + Create New Booking
+                </a>
 
-            <div class="card-body">
+            </div>
 
-                <!-- Appointment Heading and Button -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="table-responsive">
 
-                    <h4 class="mb-0">My Appointments</h4>
+                <table class="table">
 
-                    <a href="book-appointment.html" class="btn btn-primary">
-                        Book Appointment
-                    </a>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Treatment</th>
+                            <th>Dentist</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
 
-                </div>
+                    <tbody id="appointmentTable">
+                    </tbody>
 
-                <!-- Appointment Table -->
-                <div class="table-responsive">
-
-                    <table class="table table-striped table-hover align-middle">
-
-                        <thead class="table-primary">
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Treatment</th>
-                                <th>Dentist</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody id="appointmentTableBody">
-
-                            <!-- Existing Sample Appointment -->
-                            <tr>
-                                <td>29 Oct 2026</td>
-                                <td>10:00 AM</td>
-                                <td>Dental Scaling</td>
-                                <td>Dr. Sarah</td>
-                                <td>
-                                    <span class="badge bg-success">
-                                        Confirmed
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>5 Nov 2026</td>
-                                <td>2:00 PM</td>
-                                <td>Dental Check-up</td>
-                                <td>Dr. Daniel</td>
-                                <td>
-                                    <span class="badge bg-warning text-dark">
-                                        Pending
-                                    </span>
-                                </td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-                <p class="text-muted small mb-0">
-                    Note: Appointment information includes sample data
-                    and newly submitted bookings.
-                </p>
+                </table>
 
             </div>
 
         </div>
 
+        <!-- TREATMENT & PRICING -->
+        <div class="content-card mb-4">
+
+            <h5 class="section-title">
+                Our Treatments & Prices
+            </h5>
+
+            <p class="page-subtitle mb-4">
+                Select a treatment to learn more about the procedure and its benefits.
+            </p>
+
+            <div class="row g-3">
+
+                <!-- DENTAL SCALING -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('dental-scaling')">
+                        <div class="treatment-icon">🦷</div>
+                        <h6>dental-scaling</h6>
+                        <p class="treatment-price">RM80</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- TOOTH FILLING -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('tooth-filling')">
+                        <div class="treatment-icon">✨</div>
+                        <h6>tooth-filling</h6>
+                        <p class="treatment-price">RM100</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- TOOTH EXTRACTION -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('tooth-extraction')">
+                        <div class="treatment-icon">🩺</div>
+                        <h6>tooth-extraction</h6>
+                        <p class="treatment-price">RM120</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- TEETH WHITENING -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('teeth-whitening')">
+                        <div class="treatment-icon">😁</div>
+                        <h6>teeth-whitening</h6>
+                        <p class="treatment-price">RM350</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- DENTAL CHECK-UP -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('dental-check-up')">
+                        <div class="treatment-icon">🔍</div>
+                        <h6>dental-check-up</h6>
+                        <p class="treatment-price">RM30</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- BRACES CONSULTATION -->
+                <div class="col-md-4 col-sm-6">
+                    <button type="button" class="treatment-card"
+                        onclick="openTreatment('braces-consultation')">
+                        <div class="treatment-icon">😁</div>
+                        <h6>braces-consultation</h6>
+                        <p class="treatment-price">RM50</p>
+                        <div class="d-flex justify-content-end">
+                            <span class="treatment-arrow">→</span>
+                        </div>
+                    </button>
+                </div>
+
+            </div>
+
+            <p class="price-note">
+                <strong>Note:</strong> All prices shown are estimated prices for reference.
+                The final treatment cost may vary depending on the dentist's examination.
+            </p>
+
+        </div>
+
+        <!-- INFORMATION CARD -->
+        <div class="content-card">
+
+            <h5 class="section-title">
+                Appointment Information
+            </h5>
+
+            <p class="page-subtitle mb-2">
+                <strong>Patient Name:</strong> Anis Amira
+            </p>
+
+            <p class="page-subtitle mb-2">
+                <strong>Upcoming Treatment:</strong>
+                <span id="infoTreatment">--</span>
+            </p>
+
+            <p class="page-subtitle mb-0">
+                <strong>Assigned Dentist:</strong>
+                <span id="infoDentist">--</span>
+            </p>
+
+        </div>
+
     </div>
 
+    <!-- TREATMENT DETAILS MODAL -->
+    <div class="modal fade treatment-modal" id="treatmentModal"
+        tabindex="-1" aria-labelledby="treatmentModalTitle" aria-hidden="true">
 
-    <!-- Bootstrap JavaScript -->
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="treatmentModalTitle">
+                        Treatment Details
+                    </h5>
+
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <img id="modalTreatmentImage"
+                        class="treatment-modal-img"
+                        src=""
+                        alt="Dental treatment">
+
+                    <h4 id="modalTreatmentName" class="section-title mb-2">
+                    </h4>
+
+                    <p class="modal-price" id="modalTreatmentPrice">
+                    </p>
+
+                    <h6 class="modal-section-title">
+                        What is this treatment?
+                    </h6>
+
+                    <p class="modal-description" id="modalDescription">
+                    </p>
+
+                    <h6 class="modal-section-title">
+                        Benefits
+                    </h6>
+
+                    <p class="modal-description" id="modalBenefits">
+                    </p>
+
+                    <h6 class="modal-section-title">
+                        What to expect
+                    </h6>
+
+                    <p class="modal-description" id="modalProcedure">
+                    </p>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <a href="book-appointment.html"
+                            class="modal-booking-btn">
+                            Book This Treatment
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 SmileCare Dental Clinic. All Rights Reserved.
+    </footer>
+
+    <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
-    <!-- Display New Bookings -->
+    <!-- JAVASCRIPT -->
     <script>
 
-        // Get saved appointments from localStorage
-        const savedAppointments = JSON.parse(
-            localStorage.getItem("smilecareAppointments")
-        ) || [];
+        // LOCAL STORAGE SETTINGS
+        const STORAGE_KEY = "smilecareAppointments";
 
-        const appointmentTable = document.getElementById("appointmentTableBody");
+        // Identify Anis using her email
+        const PATIENT_EMAIL = "anis@gmail.com";
 
-        // Display new appointments
-        savedAppointments.forEach(function(appointment) {
+        // TREATMENT INFORMATION
+        const treatmentDetails = {
 
-            const row = document.createElement("tr");
+            "dental-scaling": {
+                name: "dental-scaling",
+                price: "RM80",
+                image: "images/dental-scaling.jpeg",
 
-            // Format appointment date
-            const date = new Date(appointment.date + "T00:00:00");
+                description:
+                    "Dental scaling is a professional cleaning procedure that removes plaque and hardened tartar from the surface of the teeth and around the gum line. It helps clean areas that may be difficult to reach with regular brushing.",
 
-            const formattedDate = date.toLocaleDateString("en-GB", {
-                day: "numeric",
+                benefits:
+                    "This treatment helps maintain healthy gums, reduces tartar build-up and supports better oral hygiene. Regular professional cleaning may also help reduce the risk of gum problems.",
+
+                procedure:
+                    "The dentist or dental professional uses special dental instruments to remove plaque and tartar. The teeth may then be polished to leave the surfaces feeling cleaner. Some patients may experience temporary sensitivity."
+            },
+
+            "tooth-filling": {
+                name: "tooth-filling",
+                price: "RM100",
+                image: "images/tooth-filling.jpeg",
+
+                description:
+                    "Tooth filling is a dental procedure used to repair a tooth affected by decay or a small cavity. The damaged part of the tooth is cleaned and filled with a suitable dental material.",
+
+                benefits:
+                    "A filling helps restore the tooth's shape and function. It can also help prevent the affected area from becoming more damaged.",
+
+                procedure:
+                    "The dentist examines the affected tooth, removes the decayed portion and places filling material into the cleaned area. The material is shaped and adjusted so that the patient can bite comfortably."
+            },
+
+            "tooth-extraction": {
+                name: "tooth-extraction",
+                price: "RM120",
+                image: "images/dental-extraction.jpeg",
+
+                description:
+                    "Tooth extraction is a dental procedure in which a tooth is removed from its socket. It may be recommended when a tooth is severely damaged, badly decayed or causing other dental problems.",
+
+                benefits:
+                    "Removing a problematic tooth may help relieve pain, address infection or prevent further complications. The dentist will first assess whether extraction is the most suitable option.",
+
+                procedure:
+                    "The dentist examines the tooth and may use local anaesthesia to numb the area. The tooth is then carefully removed. Patients will receive aftercare instructions to support healing."
+            },
+
+            "teeth-whitening": {
+                name: "teeth-whitening",
+                price: "RM350",
+                image: "images/teeth-whitening.jpeg",
+
+                description:
+                    "Teeth whitening is a cosmetic dental treatment that helps reduce certain stains and discolouration on the teeth. It is designed to make the natural teeth appear brighter.",
+
+                benefits:
+                    "This treatment can improve the appearance of stained teeth and help patients feel more confident about their smiles. Results may vary depending on the type and cause of discolouration.",
+
+                procedure:
+                    "The dentist first checks the patient's teeth and gums. A suitable whitening product is then applied according to the treatment plan. Some patients may experience temporary tooth sensitivity."
+            },
+
+            "dental-check-up": {
+                name: "dental-check-up",
+                price: "RM30",
+                image: "images/dental-check-up.jpeg",
+
+                description:
+                    "A dental check-up is a routine examination of the teeth, gums and overall oral health. It allows the dentist to look for possible dental problems such as cavities, gum issues or other concerns.",
+
+                benefits:
+                    "Regular dental check-ups help identify potential problems early. They also allow patients to receive professional advice about brushing, flossing and maintaining good oral hygiene.",
+
+                procedure:
+                    "The dentist examines the teeth and gums using dental instruments. The dentist may also discuss any symptoms or concerns and recommend further treatment if needed."
+            },
+
+            "braces-consultation": {
+                name: "braces-consultation",
+                price: "RM50",
+                image: "images/braces-consultation.jpeg",
+
+                description:
+                    "A braces consultation is an appointment where the dentist or orthodontist assesses the position and alignment of the teeth and jaw. It helps determine whether braces or another orthodontic treatment may be suitable.",
+
+                benefits:
+                    "The consultation helps patients understand their teeth alignment, available treatment options and the expected treatment process. It also provides an opportunity to discuss concerns and ask questions.",
+
+                procedure:
+                    "The dentist examines the teeth and bite alignment. Photographs, dental impressions or X-rays may be recommended when necessary. The dentist then explains possible treatment options and estimated costs."
+            }
+
+        };
+
+        // OPEN TREATMENT MODAL
+        function openTreatment(treatmentId) {
+
+            const treatment = treatmentDetails[treatmentId];
+
+            if (!treatment) {
+                return;
+            }
+
+            document.getElementById("modalTreatmentName").textContent =
+                treatment.name;
+
+            document.getElementById("modalTreatmentPrice").textContent =
+                treatment.price;
+
+            document.getElementById("modalTreatmentImage").src =
+                treatment.image;
+
+            document.getElementById("modalTreatmentImage").alt =
+                treatment.name;
+
+            document.getElementById("modalDescription").textContent =
+                treatment.description;
+
+            document.getElementById("modalBenefits").textContent =
+                treatment.benefits;
+
+            document.getElementById("modalProcedure").textContent =
+                treatment.procedure;
+
+            const modal = new bootstrap.Modal(
+                document.getElementById("treatmentModal")
+            );
+
+            modal.show();
+
+        }
+
+        // GET APPOINTMENTS FROM LOCAL STORAGE
+        function getAppointments() {
+
+            let appointments = [];
+
+            try {
+                appointments = JSON.parse(
+                    localStorage.getItem(STORAGE_KEY)
+                ) || [];
+            } catch (error) {
+                appointments = [];
+            }
+
+            if (!Array.isArray(appointments)) {
+                appointments = [];
+            }
+
+            // Remove Anis's unwanted appointments
+            appointments = appointments.filter(function(appointment) {
+
+                return !(
+                    (appointment.patientEmail || "").toLowerCase() === PATIENT_EMAIL &&
+                    (
+                        (
+                            appointment.date === "2026-11-16" &&
+                            appointment.time === "02:00 PM"
+                        ) ||
+                        (
+                            appointment.date === "2026-12-10" &&
+                            appointment.time === "03:00 PM"
+                        )
+                    )
+                );
+
+            });
+
+            // Give IDs to bookings that do not have one
+            appointments = appointments.map(function(appointment, index) {
+
+                if (!appointment.id) {
+                    appointment.id = "booking-" + Date.now() + "-" + index;
+                }
+
+                return appointment;
+
+            });
+
+            // Save updated records
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(appointments)
+            );
+
+            return appointments;
+
+        }
+
+        // FORMAT DATE
+        function formatDate(dateValue) {
+
+            if (!dateValue) {
+                return "--";
+            }
+
+            const parts = dateValue.split("-");
+
+            if (parts.length !== 3) {
+                return dateValue;
+            }
+
+            const date = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+
+            return date.toLocaleDateString("en-GB", {
+                day: "2-digit",
                 month: "short",
                 year: "numeric"
             });
 
-            // Appointment details
-            const details = [
-                formattedDate,
-                appointment.time,
-                appointment.treatment,
-                appointment.dentist,
-                appointment.status
-            ];
+        }
 
-            details.forEach(function(detail, index) {
+        // PREVENT HTML FROM BEING INSERTED INTO TABLE
+        function escapeHTML(value) {
 
-                const cell = document.createElement("td");
+            return String(value ?? "").replace(/[&<>"']/g, function(character) {
 
-                // Display appointment status
-                if (index === 4) {
+                const characters = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                };
 
-                    const badge = document.createElement("span");
-
-                    badge.className = "badge bg-warning text-dark";
-                    badge.textContent = detail;
-
-                    cell.appendChild(badge);
-
-                } else {
-
-                    cell.textContent = detail;
-
-                }
-
-                row.appendChild(cell);
+                return characters[character];
 
             });
 
-            // Add new appointment to table
-            appointmentTable.appendChild(row);
+        }
 
-        });
+        // GET ANIS'S APPOINTMENTS ONLY
+        function getPatientAppointments() {
+
+            const allAppointments = getAppointments();
+
+            return allAppointments
+                .filter(function(appointment) {
+
+                    return (
+                        (appointment.patientEmail || "").toLowerCase() === PATIENT_EMAIL
+                    );
+
+                })
+                .sort(function(a, b) {
+
+                    return (
+                        a.date.localeCompare(b.date) ||
+                        (a.time || "").localeCompare(b.time || "")
+                    );
+
+                });
+
+        }
+
+        // DISPLAY APPOINTMENTS IN TABLE
+        function displayAppointments() {
+
+            const appointments = getPatientAppointments();
+
+            const table = document.getElementById("appointmentTable");
+
+            table.innerHTML = "";
+
+            if (appointments.length === 0) {
+
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            No appointments found.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+
+            }
+
+            appointments.forEach(function(appointment) {
+
+                const status = appointment.status || "Pending";
+
+                const statusClass =
+                    status.toLowerCase() === "confirmed"
+                    ? "confirmed"
+                    : "pending";
+
+                const dentist =
+                    appointment.dentist || "To be assigned by clinic";
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${escapeHTML(formatDate(appointment.date))}</td>
+                    <td>${escapeHTML(appointment.time || "--")}</td>
+                    <td>${escapeHTML(appointment.treatment || "--")}</td>
+                    <td>${escapeHTML(dentist)}</td>
+                    <td>
+                        <span class="status ${statusClass}">
+                            ${escapeHTML(status)}
+                        </span>
+                    </td>
+                `;
+
+                table.appendChild(row);
+
+            });
+
+        }
+
+        // UPDATE SUMMARY CARDS
+        function updateSummary() {
+
+            const appointments = getPatientAppointments();
+
+            if (appointments.length === 0) {
+
+                document.getElementById("nextAppointmentDate").textContent = "None";
+
+                document.getElementById("nextAppointmentTime").textContent =
+                    "No upcoming appointment";
+
+                document.getElementById("appointmentStatus").textContent = "None";
+
+                document.getElementById("appointmentTreatment").textContent =
+                    "No appointment available";
+
+                document.getElementById("infoTreatment").textContent = "None";
+
+                document.getElementById("infoDentist").textContent = "Not assigned";
+
+                return;
+
+            }
+
+            // Find the next appointment based on today's date
+            const today = new Date();
+
+            const todayString =
+                today.getFullYear() + "-" +
+                String(today.getMonth() + 1).padStart(2, "0") + "-" +
+                String(today.getDate()).padStart(2, "0");
+
+            let selectedAppointment = appointments.find(function(appointment) {
+
+                return appointment.date >= todayString;
+
+            });
+
+            // If no future appointment exists, show the latest appointment
+            if (!selectedAppointment) {
+                selectedAppointment = appointments[appointments.length - 1];
+            }
+
+            // Update Next Appointment Card
+            document.getElementById("nextAppointmentDate").textContent =
+                formatDate(selectedAppointment.date);
+
+            document.getElementById("nextAppointmentTime").textContent =
+                selectedAppointment.time || "--";
+
+            // Update Appointment Status Card
+            document.getElementById("appointmentStatus").textContent =
+                selectedAppointment.status || "Pending";
+
+            document.getElementById("appointmentTreatment").textContent =
+                selectedAppointment.treatment || "--";
+
+            // Update Appointment Information
+            document.getElementById("infoTreatment").textContent =
+                selectedAppointment.treatment || "--";
+
+            document.getElementById("infoDentist").textContent =
+                selectedAppointment.dentist || "To be assigned by clinic";
+
+        }
+
+        // UPDATE DARK MODE ICON
+        function updateThemeIcon() {
+
+            const button = document.getElementById("themeButton");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+                button.innerHTML = "☀️";
+            } else {
+                button.innerHTML = "🌙";
+            }
+
+        }
+
+        // TOGGLE DARK MODE
+        function toggleDarkMode() {
+
+            document.documentElement.classList.toggle("dark-mode");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+
+                localStorage.setItem("smilecareTheme", "dark");
+
+            } else {
+
+                localStorage.setItem("smilecareTheme", "light");
+
+            }
+
+            updateThemeIcon();
+
+        }
+
+        // LOAD DASHBOARD DATA WHEN PAGE OPENS
+        function loadDashboard() {
+
+            displayAppointments();
+
+            updateSummary();
+
+            updateThemeIcon();
+
+        }
+
+        loadDashboard();
 
     </script>
 

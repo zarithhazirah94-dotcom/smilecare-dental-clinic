@@ -1,0 +1,1065 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Appointment Management | SmileCare Dental Clinic</title>
+
+    <!-- Apply Saved Theme -->
+    <script>
+        if (localStorage.getItem("smilecareTheme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Poppins', sans-serif;
+            color: #26374a;
+            transition: 0.3s;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #12304a;
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            font-size: 21px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: white;
+            padding: 3px;
+        }
+
+        .nav-link {
+            color: #dce8f1 !important;
+            margin-left: 10px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #5ee0d0 !important;
+        }
+
+        /* Dark Mode Button */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background-color: #ffffff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* Page Heading */
+        .page-title {
+            color: #12304a;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #718096;
+        }
+
+        /* Summary Cards */
+        .summary-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+            transition: 0.3s ease;
+        }
+
+        .summary-card:hover {
+            background-color: #e8f8f6;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .summary-number {
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .summary-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 23px;
+        }
+
+        .icon-blue {
+            background-color: #e0efff;
+        }
+
+        .icon-green {
+            background-color: #dff7ee;
+        }
+
+        .icon-yellow {
+            background-color: #fff3cd;
+        }
+
+        .icon-red {
+            background-color: #ffe1e1;
+        }
+
+        /* Appointment Table Card */
+        .appointment-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+        }
+
+        .table thead th {
+            background-color: #e7f1f8;
+            color: #23465c;
+            font-size: 13px;
+            white-space: nowrap;
+            padding: 14px;
+        }
+
+        .table tbody td {
+            padding: 14px;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: #dff5f2;
+        }
+
+        /* Search and Filter */
+        .form-control,
+        .form-select {
+            border-radius: 9px;
+            padding: 10px 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #65d6cf;
+            box-shadow: 0 0 0 0.2rem rgba(101,214,207,0.15);
+        }
+
+        /* Buttons */
+        .btn {
+            transition: 0.3s ease;
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Empty Message */
+        .empty-message {
+            color: #718096;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* Dark Mode */
+        html.dark-mode body {
+            background-color: #101c29;
+            color: #e4edf5;
+        }
+
+        html.dark-mode .page-title {
+            color: #8bd5f0;
+        }
+
+        html.dark-mode .page-subtitle,
+        html.dark-mode .text-muted {
+            color: #aebdca !important;
+        }
+
+        html.dark-mode .summary-card,
+        html.dark-mode .appointment-card {
+            background-color: #1e2d3d;
+            color: #e4edf5;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        html.dark-mode .summary-card:hover {
+            background-color: #294357;
+        }
+
+        html.dark-mode .summary-card h6,
+        html.dark-mode .appointment-card h5 {
+            color: #e4edf5;
+        }
+
+        html.dark-mode .icon-blue {
+            background-color: #263f59;
+        }
+
+        html.dark-mode .icon-green {
+            background-color: #234b42;
+        }
+
+        html.dark-mode .icon-yellow {
+            background-color: #51452b;
+        }
+
+        html.dark-mode .icon-red {
+            background-color: #573535;
+        }
+
+        html.dark-mode .table {
+            color: #e4edf5;
+            --bs-table-bg: #1e2d3d;
+            --bs-table-color: #e4edf5;
+            --bs-table-hover-bg: #293d50;
+            --bs-table-hover-color: #ffffff;
+        }
+
+        html.dark-mode .table thead th {
+            background-color: #293d50;
+            color: #8bd5f0;
+            border-color: #40566a;
+        }
+
+        html.dark-mode .table tbody td {
+            border-color: #35485b;
+        }
+
+        html.dark-mode .form-control,
+        html.dark-mode .form-select {
+            background-color: #26394b;
+            border-color: #40566a;
+            color: white;
+        }
+
+        html.dark-mode .form-control::placeholder {
+            color: #aab9c7;
+        }
+
+        html.dark-mode .form-control:focus,
+        html.dark-mode .form-select:focus {
+            background-color: #26394b;
+            color: white;
+            border-color: #65d6cf;
+        }
+
+        html.dark-mode .theme-btn {
+            background-color: #34495e;
+        }
+
+        html.dark-mode .empty-message {
+            color: #aebdca;
+        }
+
+        @media (max-width: 767px) {
+            .theme-btn {
+                margin: 10px 0;
+            }
+
+            .summary-card {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="admin.html">
+                <img src="images/logo.png" alt="SmileCare Logo">
+                SmileCare Admin
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.html">Dashboard</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="patients.html">Patients</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="appointments.html">Appointments</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button
+                            type="button"
+                            class="theme-btn"
+                            id="themeToggle"
+                            onclick="toggleDarkMode()"
+                            aria-label="Toggle dark mode"
+                            title="Toggle Dark Mode">
+                            🌙
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <div class="container py-4">
+
+        <h2 class="page-title">Appointment Management</h2>
+
+        <p class="page-subtitle">
+            View appointment details and manage booking statuses.
+        </p>
+
+
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4">
+
+            <!-- Total Appointments -->
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card summary-card h-100">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <h6 class="text-muted">Total Appointments</h6>
+
+                                <h3 class="summary-number" id="totalAppointments">0</h3>
+
+                                <p class="text-muted small mb-0">
+                                    All appointment bookings
+                                </p>
+                            </div>
+
+                            <div class="summary-icon icon-blue">
+                                📅
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Confirmed -->
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card summary-card h-100">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <h6 class="text-muted">Confirmed</h6>
+
+                                <h3 class="summary-number text-success"
+                                    id="confirmedAppointments">0</h3>
+
+                                <p class="text-muted small mb-0">
+                                    Approved appointments
+                                </p>
+                            </div>
+
+                            <div class="summary-icon icon-green">
+                                ✔️
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pending -->
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card summary-card h-100">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <h6 class="text-muted">Pending</h6>
+
+                                <h3 class="summary-number text-warning"
+                                    id="pendingAppointments">0</h3>
+
+                                <p class="text-muted small mb-0">
+                                    Waiting for confirmation
+                                </p>
+                            </div>
+
+                            <div class="summary-icon icon-yellow">
+                                ⏳
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Cancelled -->
+            <div class="col-md-6 col-lg-3">
+
+                <div class="card summary-card h-100">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+                                <h6 class="text-muted">Cancelled</h6>
+
+                                <h3 class="summary-number text-danger"
+                                    id="cancelledAppointments">0</h3>
+
+                                <p class="text-muted small mb-0">
+                                    Cancelled bookings
+                                </p>
+                            </div>
+
+                            <div class="summary-icon icon-red">
+                                ✖️
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Appointment Records -->
+        <div class="card appointment-card">
+
+            <div class="card-body p-4">
+
+                <h5 class="fw-bold mb-3">Appointment Records</h5>
+
+                <p class="text-muted small">
+                    Manage and monitor patient appointment bookings.
+                </p>
+
+
+                <!-- Search and Filters -->
+                <div class="row g-2 mb-3">
+
+                    <div class="col-md-6">
+
+                        <input type="text"
+                            id="searchAppointment"
+                            class="form-control"
+                            placeholder="Search patient, treatment or dentist...">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <input type="date"
+                            id="dateFilter"
+                            class="form-control"
+                            aria-label="Filter by appointment date">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <select id="statusFilter" class="form-select">
+
+                            <option value="">All Statuses</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Cancelled">Cancelled</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Appointment Table -->
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Patient Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Treatment</th>
+                                <th>Dentist</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="appointmentTable">
+                            <!-- Appointment records will be displayed here -->
+                        </tbody>
+
+                    </table>
+
+                    <p id="emptyMessage" class="empty-message" style="display:none;">
+                        No appointment records found.
+                    </p>
+
+                </div>
+
+
+                <p class="text-muted small mb-0 mt-3">
+                    Appointment records are stored in this browser using localStorage.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Appointment Management JavaScript -->
+    <script>
+
+        // localStorage key
+        const STORAGE_KEY = "smilecareAppointments";
+
+
+        // Default demonstration appointments
+        const demoAppointments = [
+
+            {
+                id: "demo-1",
+                patientName: "Intan Nadhirah",
+                patientEmail: "intan@gmail.com",
+                date: "2026-11-16",
+                time: "10:00 AM",
+                treatment: "Dental Scaling",
+                dentist: "Dr. Raudah",
+                status: "Confirmed"
+            },
+
+            {
+                id: "demo-2",
+                patientName: "Saidatul Akma",
+                patientEmail: "saidatul@gmail.com",
+                date: "2026-11-16",
+                time: "11:00 AM",
+                treatment: "Tooth Filling",
+                dentist: "Dr. Fatin",
+                status: "Cancelled"
+            },
+
+            {
+                id: "demo-3",
+                patientName: "Damia Izzati",
+                patientEmail: "damia@gmail.com",
+                date: "2026-11-17",
+                time: "02:00 PM",
+                treatment: "Dental Check-up",
+                dentist: "Dr. Teha",
+                status: "Confirmed"
+            },
+
+            {
+                id: "demo-4",
+                patientName: "Anis Amira",
+                patientEmail: "anis@gmail.com",
+                date: "2026-11-18",
+                time: "03:00 PM",
+                treatment: "Tooth Extraction",
+                dentist: "Dr. Fatin",
+                status: "Pending"
+            }
+
+        ];
+
+
+        // Check whether two appointments are the same
+        function isSameAppointment(first, second) {
+
+            return (
+                String(first.patientName || "").toLowerCase() ===
+                    String(second.patientName || "").toLowerCase() &&
+
+                String(first.patientEmail || "").toLowerCase() ===
+                    String(second.patientEmail || "").toLowerCase() &&
+
+                first.date === second.date &&
+                first.time === second.time &&
+                first.treatment === second.treatment
+            );
+
+        }
+
+
+        // Get existing appointments from localStorage
+        function getAppointments() {
+
+            let savedAppointments = [];
+
+            try {
+
+                savedAppointments = JSON.parse(
+                    localStorage.getItem(STORAGE_KEY)
+                ) || [];
+
+                if (!Array.isArray(savedAppointments)) {
+                    savedAppointments = [];
+                }
+
+            } catch (error) {
+
+                savedAppointments = [];
+
+            }
+
+
+            // Ensure every saved appointment has an ID
+            savedAppointments = savedAppointments.map(function(appointment, index) {
+
+                if (!appointment.id) {
+                    appointment.id = "booking-" + index + "-" + Date.now();
+                }
+
+                return appointment;
+
+            });
+
+
+            // Start with default demonstration records
+            const allAppointments = demoAppointments.map(function(appointment) {
+                return { ...appointment };
+            });
+
+
+            // Add saved bookings that are not already in demo records
+            savedAppointments.forEach(function(appointment) {
+
+                const alreadyExists = allAppointments.some(function(existing) {
+
+                    return isSameAppointment(existing, appointment);
+
+                });
+
+
+                if (!alreadyExists) {
+                    allAppointments.push(appointment);
+                }
+
+            });
+
+
+            // Save the updated appointment records
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(allAppointments)
+            );
+
+            return allAppointments;
+
+        }
+
+
+        // Store appointment records
+        let appointments = getAppointments();
+
+
+        // HTML-safe text
+        function escapeHTML(value) {
+
+            return String(value ?? "").replace(/[&<>"']/g, function(character) {
+
+                const characters = {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                };
+
+                return characters[character];
+
+            });
+
+        }
+
+
+        // Format date
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "-";
+            }
+
+            const parts = dateString.split("-");
+
+            if (parts.length !== 3) {
+                return dateString;
+            }
+
+            const date = new Date(
+                Number(parts[0]),
+                Number(parts[1]) - 1,
+                Number(parts[2])
+            );
+
+            return date.toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+        }
+
+
+        // Display appointment records
+        function displayAppointments() {
+
+            const appointmentTable = document.getElementById("appointmentTable");
+
+            appointmentTable.innerHTML = "";
+
+
+            appointments.forEach(function(appointment, index) {
+
+                const status = appointment.status || "Pending";
+
+                let statusBadge = "";
+
+                if (status === "Confirmed") {
+
+                    statusBadge =
+                        '<span class="badge bg-success">Confirmed</span>';
+
+                } else if (status === "Cancelled") {
+
+                    statusBadge =
+                        '<span class="badge bg-danger">Cancelled</span>';
+
+                } else {
+
+                    statusBadge =
+                        '<span class="badge bg-warning text-dark">Pending</span>';
+
+                }
+
+
+                // Only Pending appointments can be confirmed
+                const actionButton = status === "Pending"
+
+                    ? `<button class="btn btn-sm btn-success confirm-btn"
+                        data-id="${escapeHTML(appointment.id)}">
+                        Confirm
+                       </button>`
+
+                    : `<button class="btn btn-sm btn-outline-secondary" disabled>
+                        ${escapeHTML(status)}
+                       </button>`;
+
+
+                const row = document.createElement("tr");
+
+                row.dataset.date = appointment.date || "";
+
+                row.innerHTML = `
+
+                    <td>${index + 1}</td>
+
+                    <td>${escapeHTML(appointment.patientName)}</td>
+
+                    <td>${escapeHTML(formatDate(appointment.date))}</td>
+
+                    <td>${escapeHTML(appointment.time)}</td>
+
+                    <td>${escapeHTML(appointment.treatment)}</td>
+
+                    <td>${escapeHTML(appointment.dentist || "To be assigned by clinic")}</td>
+
+                    <td class="status-cell">
+                        ${statusBadge}
+                    </td>
+
+                    <td>
+                        ${actionButton}
+                    </td>
+
+                `;
+
+                appointmentTable.appendChild(row);
+
+            });
+
+
+            updateSummary();
+
+            filterAppointments();
+
+        }
+
+
+        // Update Summary Cards
+        function updateSummary() {
+
+            const total = appointments.length;
+
+            const confirmed = appointments.filter(function(appointment) {
+                return appointment.status === "Confirmed";
+            }).length;
+
+            const pending = appointments.filter(function(appointment) {
+                return !appointment.status || appointment.status === "Pending";
+            }).length;
+
+            const cancelled = appointments.filter(function(appointment) {
+                return appointment.status === "Cancelled";
+            }).length;
+
+
+            document.getElementById("totalAppointments").textContent = total;
+
+            document.getElementById("confirmedAppointments").textContent = confirmed;
+
+            document.getElementById("pendingAppointments").textContent = pending;
+
+            document.getElementById("cancelledAppointments").textContent = cancelled;
+
+        }
+
+
+        // Search and Filter
+        const searchInput = document.getElementById("searchAppointment");
+
+        const statusFilter = document.getElementById("statusFilter");
+
+        const dateFilter = document.getElementById("dateFilter");
+
+
+        function filterAppointments() {
+
+            const searchValue = searchInput.value.toLowerCase();
+
+            const selectedStatus = statusFilter.value;
+
+            const selectedDate = dateFilter.value;
+
+            const rows = document.querySelectorAll("#appointmentTable tr");
+
+            let visibleCount = 0;
+
+
+            rows.forEach(function(row) {
+
+                const appointmentInfo = row.textContent.toLowerCase();
+
+                const status = row.querySelector(".status-cell")
+                    .textContent.trim();
+
+                const appointmentDate = row.dataset.date;
+
+
+                const matchesSearch =
+                    appointmentInfo.includes(searchValue);
+
+                const matchesStatus =
+                    selectedStatus === "" || status === selectedStatus;
+
+                const matchesDate =
+                    selectedDate === "" || appointmentDate === selectedDate;
+
+
+                const isVisible =
+                    matchesSearch && matchesStatus && matchesDate;
+
+                row.style.display = isVisible ? "" : "none";
+
+                if (isVisible) {
+                    visibleCount++;
+                }
+
+            });
+
+
+            // Show message when no records match the filters
+            document.getElementById("emptyMessage").style.display =
+                visibleCount === 0 ? "block" : "none";
+
+        }
+
+
+        // Search Event Listeners
+        searchInput.addEventListener("input", filterAppointments);
+
+        statusFilter.addEventListener("change", filterAppointments);
+
+        dateFilter.addEventListener("change", filterAppointments);
+
+
+        // Confirm Appointment
+        document.getElementById("appointmentTable").addEventListener("click", function(event) {
+
+            const button = event.target.closest(".confirm-btn");
+
+            if (!button) {
+                return;
+            }
+
+
+            const appointmentId = button.dataset.id;
+
+
+            // Find selected appointment
+            const selectedAppointment = appointments.find(function(appointment) {
+
+                return String(appointment.id) === String(appointmentId);
+
+            });
+
+
+            if (!selectedAppointment || selectedAppointment.status !== "Pending") {
+                return;
+            }
+
+
+            // Change appointment status
+            selectedAppointment.status = "Confirmed";
+
+
+            // Save updated appointment records
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(appointments)
+            );
+
+
+            // Refresh appointment table
+            displayAppointments();
+
+        });
+
+
+        // Dark Mode Functions
+        function updateThemeIcon() {
+
+            const themeButton = document.getElementById("themeToggle");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+
+                themeButton.textContent = "☀️";
+
+            } else {
+
+                themeButton.textContent = "🌙";
+
+            }
+
+        }
+
+
+        function toggleDarkMode() {
+
+            document.documentElement.classList.toggle("dark-mode");
+
+            const currentTheme =
+                document.documentElement.classList.contains("dark-mode")
+                ? "dark"
+                : "light";
+
+            localStorage.setItem("smilecareTheme", currentTheme);
+
+            updateThemeIcon();
+
+        }
+
+
+        // Set Theme Icon
+        updateThemeIcon();
+
+
+        // Display Appointments When Page Loads
+        displayAppointments();
+
+    </script>
+
+</body>
+</html>

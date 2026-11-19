@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Appointment | SmileCare Dental Clinic</title>
+
+    <!-- Apply Saved Theme Before Page Loads -->
+    <script>
+        if (localStorage.getItem("smilecareTheme") === "dark") {
+            document.documentElement.classList.add("dark-mode");
+        }
+    </script>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f4f7fb;
+            font-family: 'Poppins', sans-serif;
+            color: #26374a;
+            transition: 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: #12304a;
+            padding: 12px 0;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 21px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            background: white;
+            border-radius: 50%;
+            padding: 4px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #dce8f1 !important;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #5ee0d0 !important;
+        }
+
+        /* DARK MODE BUTTON */
+        .theme-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #12304a;
+            font-size: 18px;
+            margin-left: 12px;
+            transition: 0.3s;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.08);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .booking-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(20, 50, 80, 0.06);
+        }
+
+        .page-title {
+            color: #123c56;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .page-subtitle {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        /* FORM */
+        .form-label {
+            color: #23465c;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-control,
+        .form-select {
+            border: 1px solid #dce5ed;
+            border-radius: 8px;
+            padding: 11px 13px;
+            font-size: 13px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #5ee0d0;
+            box-shadow: 0 0 0 0.2rem rgba(94, 224, 208, 0.15);
+        }
+
+        /* INFORMATION BOX */
+        .booking-note {
+            background: #e7f5fa;
+            border: none;
+            border-left: 4px solid #36a6c5;
+            border-radius: 8px;
+            padding: 15px;
+            color: #31596b;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        /* BUTTONS */
+        .submit-btn {
+            background-color: #123c56;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1c657b;
+            color: white;
+        }
+
+        .back-btn {
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 13px;
+        }
+
+        /* FOOTER */
+        footer {
+            color: #718096;
+            font-size: 12px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* DARK MODE */
+        .dark-mode body {
+            background-color: #101c29;
+            color: #dce8f1;
+        }
+
+        .dark-mode .booking-card {
+            background-color: #1e2d3d;
+        }
+
+        .dark-mode .page-title {
+            color: #8bd5f0;
+        }
+
+        .dark-mode .page-subtitle {
+            color: #aebdca;
+        }
+
+        .dark-mode .form-label {
+            color: #dce8f1;
+        }
+
+        .dark-mode .form-control,
+        .dark-mode .form-select {
+            background-color: #293d50;
+            border-color: #43576a;
+            color: #dce8f1;
+        }
+
+        .dark-mode .form-control::placeholder {
+            color: #aebdca;
+        }
+
+        .dark-mode .form-control:focus,
+        .dark-mode .form-select:focus {
+            border-color: #5ee0d0;
+        }
+
+        .dark-mode .form-select option {
+            background-color: #293d50;
+            color: white;
+        }
+
+        .dark-mode .booking-note {
+            background-color: #293d50;
+            color: #dce8f1;
+            border-left-color: #5ee0d0;
+        }
+
+        .dark-mode .theme-btn {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .dark-mode footer {
+            color: #aebdca;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 17px;
+            }
+
+            .booking-card {
+                padding: 20px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .theme-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="patient-dashboard.html">
+                <img src="images/logo.png" alt="SmileCare Logo">
+                SmileCare Patient
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="patient-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="book-appointment.html">
+                            Create Booking
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            Logout
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button class="theme-btn" id="themeButton"
+                            onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                            🌙
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="container main-content">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-9 col-lg-7">
+
+                <div class="booking-card">
+
+                    <!-- FORM HEADING -->
+                    <div class="text-center mb-4">
+
+                        <h2 class="page-title">
+                            Book an Appointment
+                        </h2>
+
+                        <p class="page-subtitle">
+                            Fill in the details below to request your dental appointment.
+                        </p>
+
+                    </div>
+
+
+                    <!-- APPOINTMENT FORM -->
+                    <form id="appointmentForm">
+
+                        <!-- PATIENT NAME -->
+                        <div class="mb-3">
+
+                            <label for="patientName" class="form-label">
+                                Patient Name
+                            </label>
+
+                            <input type="text"
+                                class="form-control"
+                                id="patientName"
+                                placeholder="Enter your full name"
+                                value="Anis Amira"
+                                required>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+                        <div class="mb-3">
+
+                            <label for="patientEmail" class="form-label">
+                                Email Address
+                            </label>
+
+                            <input type="email"
+                                class="form-control"
+                                id="patientEmail"
+                                placeholder="Enter your email"
+                                value="anis@gmail.com"
+                                required>
+
+                        </div>
+
+
+                        <!-- TREATMENT -->
+                        <div class="mb-3">
+
+                            <label for="treatment" class="form-label">
+                                Select Treatment
+                            </label>
+
+                            <select class="form-select" id="treatment" required>
+
+                                <option value="" selected disabled>
+                                    Choose a treatment
+                                </option>
+
+                                <option value="Dental Scaling">
+                                    Dental Scaling
+                                </option>
+
+                                <option value="Tooth Filling">
+                                    Tooth Filling
+                                </option>
+
+                                <option value="Dental Check-up">
+                                    Dental Check-up
+                                </option>
+
+                                <option value="Tooth Extraction">
+                                    Tooth Extraction
+                                </option>
+
+                                <option value="Teeth Whitening">
+                                    Teeth Whitening
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- APPOINTMENT DATE -->
+                        <div class="mb-3">
+
+                            <label for="appointmentDate" class="form-label">
+                                Appointment Date
+                            </label>
+
+                            <input type="date"
+                                class="form-control"
+                                id="appointmentDate"
+                                required>
+
+                        </div>
+
+
+                        <!-- APPOINTMENT TIME -->
+                        <div class="mb-3">
+
+                            <label for="appointmentTime" class="form-label">
+                                Preferred Time
+                            </label>
+
+                            <select class="form-select" id="appointmentTime" required>
+
+                                <option value="" selected disabled>
+                                    Choose a preferred time
+                                </option>
+
+                                <option value="09:00 AM">09:00 AM</option>
+                                <option value="10:00 AM">10:00 AM</option>
+                                <option value="11:00 AM">11:00 AM</option>
+                                <option value="02:00 PM">02:00 PM</option>
+                                <option value="03:00 PM">03:00 PM</option>
+                                <option value="04:00 PM">04:00 PM</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- DENTIST INFORMATION -->
+                        <div class="booking-note mb-4">
+
+                            <strong>Appointment Information</strong>
+
+                            <br>
+
+                            The clinic will assign a dentist based on availability.
+
+                            <br>
+
+                            Your appointment status will be Pending until confirmed by the clinic.
+
+                        </div>
+
+
+                        <!-- SUBMIT BUTTON -->
+                        <button type="submit" class="btn submit-btn w-100">
+
+                            Submit Appointment
+
+                        </button>
+
+
+                        <!-- BACK BUTTON -->
+                        <a href="patient-dashboard.html"
+                            class="btn btn-outline-secondary back-btn w-100 mt-2">
+
+                            Back to Dashboard
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 SmileCare Dental Clinic. All Rights Reserved.
+    </footer>
+
+
+    <!-- BOOTSTRAP JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // Set minimum appointment date to today
+        const today = new Date();
+
+        const localDate = new Date(
+            today.getTime() - today.getTimezoneOffset() * 60000
+        ).toISOString().split("T")[0];
+
+        document.getElementById("appointmentDate").min = localDate;
+
+
+        // Update Dark Mode Icon
+        function updateThemeIcon() {
+
+            const button = document.getElementById("themeButton");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+                button.innerHTML = "☀️";
+            } else {
+                button.innerHTML = "🌙";
+            }
+
+        }
+
+
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+
+            document.documentElement.classList.toggle("dark-mode");
+
+            if (document.documentElement.classList.contains("dark-mode")) {
+
+                localStorage.setItem("smilecareTheme", "dark");
+
+            } else {
+
+                localStorage.setItem("smilecareTheme", "light");
+
+            }
+
+            updateThemeIcon();
+
+        }
+
+
+        // Submit Appointment
+        const appointmentForm = document.getElementById("appointmentForm");
+
+        appointmentForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const patientName = document.getElementById("patientName").value.trim();
+            const patientEmail = document.getElementById("patientEmail").value.trim();
+            const treatment = document.getElementById("treatment").value;
+            const appointmentDate = document.getElementById("appointmentDate").value;
+            const appointmentTime = document.getElementById("appointmentTime").value;
+
+
+            // Check appointment date
+            if (appointmentDate < localDate) {
+
+                alert("Please select a valid appointment date.");
+
+                return;
+
+            }
+
+
+            // Create new appointment
+            const newAppointment = {
+
+                patientName: patientName,
+                patientEmail: patientEmail,
+                date: appointmentDate,
+                time: appointmentTime,
+                treatment: treatment,
+                dentist: "To be assigned by clinic",
+                status: "Pending"
+
+            };
+
+
+            // Get existing appointments
+            let appointments = JSON.parse(
+                localStorage.getItem("smilecareAppointments")
+            ) || [];
+
+
+            // Add new appointment
+            appointments.push(newAppointment);
+
+
+            // Save appointment in localStorage
+            localStorage.setItem(
+                "smilecareAppointments",
+                JSON.stringify(appointments)
+            );
+
+
+            // Show success message
+            alert("Your appointment request has been submitted successfully!");
+
+
+            // Return to Patient Dashboard
+            window.location.href = "patient-dashboard.html";
+
+        });
+
+
+        // Load Theme Icon
+        updateThemeIcon();
+
+    </script>
+
+</body>
+</html>
